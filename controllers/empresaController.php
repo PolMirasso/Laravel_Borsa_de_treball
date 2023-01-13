@@ -1,10 +1,11 @@
 <?php
 
-require_once "models/usuari.php";
+require_once "models/empresa.php";
 
 @session_start();
-class usuariController
+class empresaController
 {
+
 
     public function registrar_usuari()
     {

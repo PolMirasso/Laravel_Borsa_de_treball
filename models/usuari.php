@@ -7,7 +7,7 @@ class usuari
 
     public function regisUsr()
     {
-        $mysql = new mysqli("localhost", "root", "", "examen_php");
+        $mysql = new mysqli("hl1162.dinaserver.com", "lasalleborsa", "LaSalle_db23", "examen_php");
         if ($mysql->connect_error) {
             die('Problemas con la conexion a la base de datos');
         }
