@@ -28,6 +28,10 @@ return new class extends Migration
             $table->string('offer_sector');
             $table->string('characteristics');
 
+            $table->string('offer_state')->default("Pendent");
+            $table->tinyInteger('offer_visiblity')->default(false);
+            $table->tinyInteger('modification_status')->default(false);
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
