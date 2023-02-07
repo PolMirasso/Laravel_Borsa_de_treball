@@ -13,23 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('username');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('course');
-            $table->string('population');
-            $table->boolean('mobility');
+        Schema::create('info_offers', function (Blueprint $table) {
+            $table->increments('offer_id');
 
-            $table->string('cv_name', 2048)->nullable();
-
-            $table->integer('type_user');
-
-            $table->rememberToken();
+            $table->string('offer_state');
+            $table->tinyInteger('offer_visiblity');
+            $table->tinyInteger('modification_status');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('offer_id')->references('offer_id')->on('offers');
         });
     }
 
@@ -40,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('info_offers');
     }
 };

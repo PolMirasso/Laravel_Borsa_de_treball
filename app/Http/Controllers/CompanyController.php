@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\offers;
+use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; #encriptar contrasenyes
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +54,7 @@ class CompanyController extends Controller
 
         $offers_data = request()->except('_token'); #excluir el _token
 
-        offers::insert($offers_data); #guardar a la db 
+        Offer::insert($offers_data); #guardar a la db 
 
         return redirect('/')->with('mensaje', "S'han enviat les dades correctament, un cop aprovades seran publicades"); #redirigir i enviar msg
     }
