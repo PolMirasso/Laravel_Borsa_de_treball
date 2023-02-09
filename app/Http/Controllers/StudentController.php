@@ -4,28 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datos['offers'] = Offer::where('offer_visiblity', "1")
+
+        if (request()->ajax()) {
+            if ($request->company_population) {
+
+                $data = Offer::where('offer_visiblity', "1")
+                    ->where('company_population', $request->company_population)
+                    ->orderBy('company_type')
+                    ->get();
+            } else {
+                $data = Offer::where('offer_visiblity', "1")
+                    ->orderBy('company_type')
+                    ->get();
+            }
+            return DataTables::of($data)->make(true);
+
+            //    return Datatables()->of($data)->make(true);
+            //   return datatables()->of($data)->make(true);
+        }
+
+        $datos = Offer::where('offer_visiblity', "1")
             ->orderBy('company_type')
             ->get();
 
-
-        $datos['offers']->except('company_email');
-        $datos['offers']->except('company_type');
-        $datos['offers']->except('commercial_name');
-        $datos['offers']->except('contact_person');
-        $datos['offers']->except('company_phone');
-        $datos['offers']->except('offer_state');
-        $datos['offers']->except('offer_visiblity');
-        $datos['offers']->except('modification_status');
-        $datos['offers']->except('created_at');
-
-        //  return view('index', $datos);
-        return view('student.index', $datos);
+        return view('student.index', compact("datos"));
     }
 
     public function html()
