@@ -44,7 +44,7 @@ class RequestsController extends Controller
      * @param  \App\Models\requests  $requests
      * @return \Illuminate\Http\Response
      */
-    public function show(requests $requests)
+    public function show(Request $requests)
     {
         //
     }
@@ -55,7 +55,7 @@ class RequestsController extends Controller
      * @param  \App\Models\requests  $requests
      * @return \Illuminate\Http\Response
      */
-    public function edit(requests $requests)
+    public function edit(Request $requests)
     {
         //
     }
@@ -67,7 +67,7 @@ class RequestsController extends Controller
      * @param  \App\Models\requests  $requests
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, requests $requests)
+    public function update(Request $request, Request $requests)
     {
         //
     }
@@ -78,7 +78,7 @@ class RequestsController extends Controller
      * @param  \App\Models\requests  $requests
      * @return \Illuminate\Http\Response
      */
-    public function destroy(requests $requests)
+    public function destroy(Request $requests)
     {
         //
     }

@@ -20,9 +20,9 @@
 
                 <li class="nav-item dropdown ml-auto">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">nom usuari </a>
+                        aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->username }} </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="/">Tancar sessio</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}">Tancar sessio</a>
                     </div>
                 </li>
             </ul>

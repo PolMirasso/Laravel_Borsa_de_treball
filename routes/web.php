@@ -26,11 +26,12 @@ Route::get('/', function () {
 
 Route::view('/login', "public.login")->name('login');
 Route::view('/register', "public.register")->name('register');
+Route::get('/logout', [PublicController::class, 'logout'])->name('logout');
 
 Route::post('/validar-registro', [PublicController::class, 'register'])->name('validar-registro');
 Route::post('/inicia-sesion', [PublicController::class, 'login'])->name('inicia-sesion');
 
-Route::resource('company', CompanyController::class);
-Route::resource('public', PublicController::class);
-Route::resource('admin', AdminController::class)->middleware('auth');
-Route::resource('student', StudentController::class)->middleware('auth');
+Route::resource('/company', CompanyController::class);
+Route::resource('/public', PublicController::class);
+Route::resource('/admin', AdminController::class)->middleware('auth');
+Route::resource('/student', StudentController::class)->middleware('auth');
