@@ -71,9 +71,9 @@ class PublicController extends Controller
             $user = Auth::user();
 
             if ($user->type_user == 0) {
-                return redirect()->intended('/llibres');
+                return redirect()->intended('/student');
             } else if ($user->type_user == 1) {
-                return redirect()->intended('/student.index');
+                return redirect()->intended('/student');
             }
 
             //   return redirect()->intended('/student.index');
@@ -83,5 +83,16 @@ class PublicController extends Controller
             //msg error
             return redirect('login');
         }
+    }
+
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+        Auth::logout(); //verificar funcionament sense id
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect(route('login'));
     }
 }
