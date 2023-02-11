@@ -35,6 +35,8 @@ Route::resource('company', CompanyController::class);
 Route::resource('public', PublicController::class);
 Route::resource('admin', AdminController::class)->middleware('auth');
 
-Route::get('/student/getData', [StudentController::class, 'getData'])->name('getData')->middleware('auth');
 
+Route::get('/student/getData', [StudentController::class, 'getData'])->name('getData')->middleware('auth');
+Route::get('/student/contact/{id}', [StudentController::class, 'contact'])->name('contact')->middleware('auth');
+Route::post('/student/saveContact/{id}', [StudentController::class, 'saveContact'])->name('saveContact')->middleware('auth');
 Route::resource('student', StudentController::class)->middleware('auth');

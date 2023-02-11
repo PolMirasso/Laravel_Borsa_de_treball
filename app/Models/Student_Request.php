@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Request extends Model
+class Student_Request extends Model
 {
     protected $table = "requests"; // no seria necesari pero vincules el model amb la db
 
