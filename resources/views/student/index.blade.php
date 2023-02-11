@@ -126,11 +126,7 @@
             </div>
         </div>
     </div>
-
-
     @endsection
-
-
 
 
     @section('javascript')
@@ -155,8 +151,6 @@
                     url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/ca.json",
                 },
                 columns: [
-
-
                     { "targets": 0, "data": 'company_type' },
                     { "targets": 1, "data": 'company_population' },
                     { "targets": 2, "data": 'offer_type' },
@@ -168,14 +162,10 @@
                         "data": 'id',
                         orderable: false,
                         "render": function (data, type, row, meta) {
-                            return '<a href="{{ url("/student/' + data + '/edit") }}" class="btn btn-warning"> Reservar </a>';
+                            return `<a href="{{ url('student/contact/${data}') }}" class='btn btn-warning'>Contactar<a/>`;
                         }
                     }
-
-
-
                 ],
-
             });
 
             $('.filter-input').keyup(function () {

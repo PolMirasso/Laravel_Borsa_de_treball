@@ -24,8 +24,6 @@ return new class extends Migration
             $table->text('msg_user');
             $table->string('state');
             $table->boolean('visibility');
-            $table->dateTime('send_date');
-            $table->dateTime('responce_date');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

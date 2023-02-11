@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Models\Student_Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
 {
-
-    protected $resourceDefaults = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy', 'getData'];
 
     public function index()
     {
@@ -37,7 +38,30 @@ class StudentController extends Controller
             'characteristics'
         )->get();
 
-
         return compact('data');
+    }
+
+    public function contact($id)
+    {
+        $offer = Offer::where('offer_id', $id)->where('offer_visiblity', "1")->firstOrFail();
+
+
+        return view('student.contact', compact('offer'));
+    }
+
+    public function saveContact(Request $request, $id)
+    {
+        $offer = Offer::where('offer_id', $id)->where('offer_visiblity', "1")->firstOrFail();
+        $student_id = Auth::user()->id;
+
+        $s_Request['student_id'] = $student_id;
+        $s_Request['offer_id'] = $offer->offer_id;
+        $s_Request['msg_user'] = $request->text_contact;
+        $s_Request['state'] = "0";
+        $s_Request['visibility'] = "0";
+
+        Student_Request::insert($s_Request); #guardar a la db 
+
+        return redirect('student')->with('mensaje', 'enviat');
     }
 }
