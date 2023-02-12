@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\offers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; #encriptar contrasenyes
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Offer;
 
 class PublicController extends Controller
 {
@@ -73,7 +73,7 @@ class PublicController extends Controller
             if ($user->type_user == 0) {
                 return redirect()->intended('/student');
             } else if ($user->type_user == 1) {
-                return redirect()->intended('/student');
+                return redirect()->intended('/admin');
             }
 
             //   return redirect()->intended('/student.index');
@@ -85,6 +85,34 @@ class PublicController extends Controller
         }
     }
 
+    public function viewBorsa()
+    {
+        $datos = Offer::where('offer_visiblity', "1")->get();
+        $id = $datos->sortBy('offer_id')->pluck('offer_id')->unique();
+        $company_type =  $datos->sortBy('company_type')->pluck('company_type')->unique();
+        $company_population =  $datos->sortBy('company_population')->pluck('company_population')->unique();
+        $offer_type =  $datos->sortBy('offer_type')->pluck('offer_type')->unique();
+        $working_day_type =  $datos->sortBy('working_day_type')->pluck('working_day_type')->unique();
+        $offer_sector =  $datos->sortBy('offer_sector')->pluck('offer_sector')->unique();
+        $characteristics =  $datos->sortBy('characteristics')->pluck('characteristics')->unique();
+
+        return view('public.table', compact('id', 'company_type', 'company_population', 'offer_type', 'working_day_type', 'offer_sector', 'characteristics'));
+    }
+
+    public function getData()
+    {
+        $data = Offer::where('offer_visiblity', "1")->select(
+            'offer_id as id',
+            'company_type',
+            'company_population',
+            'offer_type',
+            'working_day_type',
+            'offer_sector',
+            'characteristics'
+        )->get();
+
+        return compact('data');
+    }
 
     public function logout(Request $request)
     {

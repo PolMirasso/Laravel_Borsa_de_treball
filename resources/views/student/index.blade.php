@@ -9,7 +9,7 @@
 
         <div class="table-responsive">
 
-            <table id="example1" class="display" style="width:100%">
+            <table id="ofertes" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>company_type</th>
@@ -134,8 +134,9 @@
 
 
 <script>
+
     $(document).ready(function () {
-        var table = $('#example1').DataTable({
+        var table = $('#ofertes').DataTable({
             ajax: {
                 url: " {{ route('getData') }}"
             },

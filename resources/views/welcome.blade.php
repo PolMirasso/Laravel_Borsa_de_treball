@@ -12,4 +12,11 @@
 
 <p>sadas</p>
 
+<a href="{{ url('/login') }}">login</a>
+<br>
+<a href="{{ url('/register') }}">register</a>
+<br>
+<a href="{{ url('company/create') }}">company</a>
+
+
 @endsection
