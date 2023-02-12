@@ -26,20 +26,7 @@ class StudentController extends Controller
         return view('student.index', compact('id', 'company_type', 'company_population', 'offer_type', 'working_day_type', 'offer_sector', 'characteristics'));
     }
 
-    public function getData()
-    {
-        $data = Offer::where('offer_visiblity', "1")->select(
-            'offer_id as id',
-            'company_type',
-            'company_population',
-            'offer_type',
-            'working_day_type',
-            'offer_sector',
-            'characteristics'
-        )->get();
 
-        return compact('data');
-    }
 
     public function contact($id)
     {
