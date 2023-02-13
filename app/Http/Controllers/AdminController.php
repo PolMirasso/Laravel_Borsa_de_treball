@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -180,6 +182,90 @@ class AdminController extends Controller
             $data->offer_visiblity = 2;
             Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
             return redirect('admin')->with('mensaje', 'borrat');
+        }
+    }
+
+
+    public function getUsersData()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+
+            $data = User::where('type_user', "!=", "0")->select(
+                'id',
+                'username',
+                'email',
+                'type_user',
+            )->get();
+
+            $data->map(function ($item) {
+                switch ($item->type_user) {
+                    case '1':
+                        $item->type_user = 'Admin';
+                        break;
+                    case '2':
+                        $item->type_user = 'Permis Lectura';
+                        break;
+                }
+                return $item;
+            });
+
+            return compact('data');
+        }
+    }
+
+    public function usersView()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+
+
+            $datos = User::where('type_user', "!=", "0")->get();
+            $id = $datos->sortBy('id')->pluck('id')->unique();
+            $username =  $datos->sortBy('username')->pluck('username')->unique();
+            $email =  $datos->sortBy('email')->pluck('email')->unique();
+            $type_user =  $datos->sortBy('type_user')->pluck('type_user')->unique();
+
+            return view('admin.users', compact('id', 'username', 'email', 'type_user'));
+        }
+    }
+
+    public function addUsr()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+            return  view('admin.addUser');
+        }
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+            $newUser = new User();
+
+            $newUser->username = $request->username;
+            $newUser->email = $request->email;
+            $newUser->course = null;
+            $newUser->population = null;
+            $newUser->mobility = null;
+            $newUser->password = Hash::make($request->password); //encriptar contra
+            $newUser->type_user = 2;
+
+            $newUser->save();
+            return redirect('admin/users');
         }
     }
 }
