@@ -37,13 +37,25 @@ Route::get('/borsa-treball', [PublicController::class, 'viewBorsa'])->name('bors
 Route::get('/public/getData', [PublicController::class, 'getData'])->name('getData');
 Route::resource('public', PublicController::class);
 
+//manejar ofertes admin
 Route::get('/admin/getAllData', [AdminController::class, 'getAllData'])->name('getAllData')->middleware('auth');
 Route::get('/admin/accept/{id}', [AdminController::class, 'accept'])->name('accept')->middleware('auth');
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit')->middleware('auth');
 Route::patch('/admin/updatePublish/{id}', [AdminController::class, 'updatePublish'])->name('updatePublish')->middleware('auth');
 Route::get('/admin/deny/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
+
+//manejar users admin
+Route::get('/admin/user/edit/{id}', [AdminController::class, 'userEdit'])->name('userEdit')->middleware('auth');
+Route::get('/admin/user/delete/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
+Route::get('/admin/getUsersData', [AdminController::class, 'getUsersData'])->name('getUsersData')->middleware('auth');
+Route::get('/admin/users', [AdminController::class, 'usersView'])->name('usersView')->middleware('auth');
+Route::get('/admin/addUsr', [AdminController::class, 'addUsr'])->name('addUsr')->middleware('auth');
+Route::post('/admin/validar-registro', [AdminController::class, 'registerAdmin'])->name('validar-admin');
+
+
 Route::resource('admin', AdminController::class)->middleware('auth');
 
+//manejar ofertes alumnes
 Route::get('/student/contact/{id}', [StudentController::class, 'contact'])->name('contact')->middleware('auth');
 Route::post('/student/saveContact/{id}', [StudentController::class, 'saveContact'])->name('saveContact')->middleware('auth');
 Route::resource('student', StudentController::class)->middleware('auth');

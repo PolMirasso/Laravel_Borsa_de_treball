@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav w-100">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">asd</a>
+                    <a class="nav-link" href="{{ route('usersView') }}">admin users</a>
                 </li>
 
                 <li class="nav-item dropdown ml-auto">
