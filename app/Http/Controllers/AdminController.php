@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use App\Models\User;
+use App\Models\Student_Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminController extends Controller
 {
@@ -266,6 +268,59 @@ class AdminController extends Controller
 
             $newUser->save();
             return redirect('admin/users');
+        }
+    }
+
+
+    public function getStudentRequests()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+            $data = Student_Request::with('student', 'offer')->where('state', '0')->get();
+
+            return compact('data');
+        }
+    }
+
+
+    public function requestView()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+
+
+            //      $datos = User::where('type_user', "!=", "0")->get();
+            //    $id = $datos->sortBy('id')->pluck('id')->unique();
+            //  $username =  $datos->sortBy('username')->pluck('username')->unique();
+            //            $email =  $datos->sortBy('email')->pluck('email')->unique();
+            //          $type_user =  $datos->sortBy('type_user')->pluck('type_user')->unique();
+
+            return view('admin.requestStudent');
+        }
+    }
+
+    public function downloadCV($id): BinaryFileResponse
+    {
+
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+
+
+            $data = User::where('id', $id)->select(
+                'cv_name',
+            )->first();
+
+            //echo $data->cv_name;
+            return response()->download(storage_path('app/public/' . $data->cv_name));
         }
     }
 }

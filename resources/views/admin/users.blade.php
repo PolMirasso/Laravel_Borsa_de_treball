@@ -103,7 +103,6 @@
                 url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/ca.json",
             },
             columns: [
-
                 { "targets": 0, "data": 'username' },
                 { "targets": 1, "data": 'email' },
                 { "targets": 2, "data": 'type_user' },
@@ -112,9 +111,7 @@
                     "data": 'id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
-
                         console.log("id: " + data)
-
                         if (data != 1) {
                             return `
                                 <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
@@ -125,27 +122,21 @@
                                 <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
                                `;
                         }
-
-
                     }
                 }
             ],
         });
-
         $('.filter-input').keyup(function () {
             table.column($(this).data('column'))
                 .search($(this).val())
                 .draw();
         });
-
         $('.filter-select').change(function () {
             table.column($(this).data('column'))
                 .search($(this).val())
                 .draw();
         });
     });
-
-
 </script>
 
 @endsection

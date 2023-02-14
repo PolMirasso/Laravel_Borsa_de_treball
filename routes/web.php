@@ -50,8 +50,12 @@ Route::get('/admin/user/delete/{id}', [AdminController::class, 'deny'])->name('d
 Route::get('/admin/getUsersData', [AdminController::class, 'getUsersData'])->name('getUsersData')->middleware('auth');
 Route::get('/admin/users', [AdminController::class, 'usersView'])->name('usersView')->middleware('auth');
 Route::get('/admin/addUsr', [AdminController::class, 'addUsr'])->name('addUsr')->middleware('auth');
-Route::post('/admin/validar-registro', [AdminController::class, 'registerAdmin'])->name('validar-admin');
+Route::post('/admin/validar-registro', [AdminController::class, 'registerAdmin'])->name('validar-admin')->middleware('auth');
 
+//manejar peticions alumnes admins
+Route::get('/admin/getStudentRequests', [AdminController::class, 'getStudentRequests'])->name('getStudentRequests')->middleware('auth');
+Route::get('/admin/requestView', [AdminController::class, 'requestView'])->name('requestView')->middleware('auth');
+Route::get('/admin/downloadCV/{id}', [AdminController::class, 'downloadCV'])->name('downloadCV')->middleware('auth');
 
 Route::resource('admin', AdminController::class)->middleware('auth');
 
