@@ -35,6 +35,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('usersView') }}">admin users</a>
                 </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('requestView') }}">requestView</a>
+                </li>
+
+
+
 
                 <li class="nav-item dropdown ml-auto">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
