@@ -317,10 +317,14 @@ class AdminController extends Controller
 
             $data = User::where('id', $id)->select(
                 'cv_name',
+                'username',
             )->first();
 
-            //echo $data->cv_name;
-            return response()->download(storage_path('app/public/' . $data->cv_name));
+
+            $file = storage_path('app/public/' . $data->cv_name);
+            $newName = $data->username . ".pdf";
+
+            return response()->download($file, $newName);
         }
     }
 }
