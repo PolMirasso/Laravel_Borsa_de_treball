@@ -187,6 +187,18 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteUsr($id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            User::where('id', $id)->first()->delete();
+            return redirect("admin/users");
+        } else if ($user->type_user == 1) {
+            return redirect()->intended('/student');
+        }
+    }
 
     public function getUsersData()
     {
@@ -279,14 +291,14 @@ class AdminController extends Controller
         if ($user->type_user == 0) {
             return redirect()->intended('/student');
         } else if ($user->type_user == 1) {
-            $data = Student_Request::with('student', 'offer')->where('state', '0')->get();
+            $data = Student_Request::with('student', 'offer')->where('visibility', '0')->get();
 
             return compact('data');
         }
     }
 
 
-    public function requestView()
+    public function requestView() //peticions alumnes
     {
         $user = Auth::user();
 
@@ -325,6 +337,21 @@ class AdminController extends Controller
             $newName = $data->username . ".pdf";
 
             return response()->download($file, $newName);
+        }
+    }
+
+    public function requestVisibility($idStudent, $idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 0) {
+            return redirect()->intended('/student');
+        } else if ($user->type_user == 1) {
+
+
+            $data = Student_Request::where('student_id', $idStudent)->where('offer_id', $idOffer)->update(['visibility' => 1]);
+
+            return view('admin.requestStudent');
         }
     }
 }
