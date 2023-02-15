@@ -32,7 +32,7 @@
                         <th>offer_type</th>
                         <th>working_day_type</th>
                         <th>characteristics</th>
-                        <th>cv_name</th>
+                        <th>accio</th>
 
                     </tr>
                 </thead>
@@ -92,10 +92,8 @@
                             <input type="text" class="form-control filter-input" placeholder="filtre 3"
                                 data-column="15">
                         </td>
-                        <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 3"
-                                data-column="16">
-                        </td>
+
+                        <td></td>
                     </tr>
 
                 </tfoot>
@@ -148,15 +146,13 @@
                 //       { "targets": 16, "data": 'student.cv_name' },
                 {
                     "targets": 16,
-                    "data": 'student.id',
+                    "data": 'student_id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
 
-                        console.log("id: " + data)
-
                         return `
                             <a href="{{ url('admin/downloadCV/${data}') }}" class='btn btn-warning'>Descarregar CV<a/> 
-                            <a href="{{ url('admin/user/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
+                            <a href="{{ url('admin/requestVisibility/${data}/${row.offer_id}') }}" onclick="return confirm('Segu que vols eliminar la peticio ')" class='btn btn-danger'>Eliminar<a/> 
                             `;
 
 

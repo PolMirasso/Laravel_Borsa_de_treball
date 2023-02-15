@@ -51,11 +51,13 @@ Route::get('/admin/getUsersData', [AdminController::class, 'getUsersData'])->nam
 Route::get('/admin/users', [AdminController::class, 'usersView'])->name('usersView')->middleware('auth');
 Route::get('/admin/addUsr', [AdminController::class, 'addUsr'])->name('addUsr')->middleware('auth');
 Route::post('/admin/validar-registro', [AdminController::class, 'registerAdmin'])->name('validar-admin')->middleware('auth');
+Route::get('/admin/delete/{id}', [AdminController::class, 'deleteUsr'])->name('deleteUsr')->middleware('auth');
 
 //manejar peticions alumnes admins
 Route::get('/admin/getStudentRequests', [AdminController::class, 'getStudentRequests'])->name('getStudentRequests')->middleware('auth');
 Route::get('/admin/requestView', [AdminController::class, 'requestView'])->name('requestView')->middleware('auth');
 Route::get('/admin/downloadCV/{id}', [AdminController::class, 'downloadCV'])->name('downloadCV')->middleware('auth');
+Route::get('/admin/requestVisibility/{idStudent}/{idOffer}', [AdminController::class, 'requestVisibility'])->name('requestVisibility')->middleware('auth');
 
 Route::resource('admin', AdminController::class)->middleware('auth');
 

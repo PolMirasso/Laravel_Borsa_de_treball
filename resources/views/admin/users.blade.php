@@ -111,11 +111,11 @@
                     "data": 'id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
-                        console.log("id: " + data)
-                        if (data != 1) {
+
+                        if (row.type_user != "Admin") {
                             return `
-                                <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
-                                <a href="{{ url('admin/user/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
+                                <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
+                                <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
                                `;
                         } else {
                             return `
