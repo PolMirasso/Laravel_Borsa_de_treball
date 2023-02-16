@@ -17,10 +17,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
             $datos = Offer::where('offer_visiblity', "0")->get();
             $id = $datos->sortBy('offer_id')->pluck('offer_id')->unique();
@@ -37,26 +34,16 @@ class AdminController extends Controller
             $characteristics =  $datos->sortBy('characteristics')->pluck('characteristics')->unique();
 
             return view('admin.index', compact('id', 'company_email', 'company_type', 'company_nif', 'commercial_name', 'contact_person', 'company_phone', 'company_population', 'offer_type', 'working_day_type', 'offer_sector', 'characteristics'));
+        } else {
+            return redirect()->intended('/student');
         }
     }
-
-    /*
-    <th>company_email</th> a
-    <th>company_type</th>
-    <th>company_nif</th> a
-    <th>commercial_name</th> a
-    <th>contact_person</th> a
-    <th>company_phone</th> a
-    */
 
     public function getAllData()
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-
+        if ($user->type_user == 1 || $user->type_user == 2) {
             $data = Offer::where('offer_visiblity', "0")->select(
                 'offer_id as id',
                 'company_email',
@@ -73,6 +60,8 @@ class AdminController extends Controller
             )->get();
 
             return compact('data');
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -80,15 +69,15 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1) {
 
             $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->select('offer_state', 'offer_visiblity')->first();
             $data->offer_state = "Accepted";
             $data->offer_visiblity = 1;
             Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
             return redirect('admin')->with('mensaje', 'acceptat'); #redirigir i enviar msg
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -96,11 +85,11 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1) {
             $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->first();
             return view('admin.edit', compact('data'));
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -108,25 +97,29 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-            /*
-                $caps_validar = [
-                    'isbn' => 'required|string|max:100',
-                    'titol' => 'required|string|max:100',
-                    'categoria' => 'required|string|max:100',
-                    'preu' => 'required|numeric',
-                    'editorial' => 'required|string|max:100',
-                    'autor' => 'required|string|max:100'
-                ];
+        if ($user->type_user == 1) {
 
-                $mensaje_Error = [
-                    'required' => 'El :attribute es obligatori', #en cas de algun camp falti
-                ];
+            $caps_validar = [
+                'company_email' => 'required|string|max:100',
+                'company_type' => 'required|string|max:100',
+                'company_nif' => 'required|string|max:8',
+                'commercial_name' => 'required|string|max:8',
+                'contact_person' => 'required|string|max:100',
+                'company_phone' => 'required|string|max:100',
+                'company_population' => 'required|string|max:100',
+                'offer_type' => 'required|string|max:100',
+                'working_day_type' => 'required|string|max:100',
+                'offer_sector' => 'required|string|max:100',
+                'characteristics' => 'required|string|max:100',
 
-                $this->validate($request, $caps_validar, $mensaje_Error);
-            */
+            ];
+
+
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori',
+            ];
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
 
             $dades_form = request()->except('_token', '_method');
 
@@ -163,10 +156,11 @@ class AdminController extends Controller
             $data->offer_visiblity = 1;
             $data->modification_status = "1";
 
-
             Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
 
-            return redirect('admin')->with('mensaje', 'oferta modificada i publicada');
+            return redirect('admin')->with('mensaje', "S'ha modificat i publicat la oferta");
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -175,17 +169,108 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1) {
 
             $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->select('offer_state', 'offer_visiblity')->first();
             $data->offer_state = "Deny";
             $data->offer_visiblity = 2;
             Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
-            return redirect('admin')->with('mensaje', 'borrat');
+            return redirect('admin')->with('mensaje', "S'ha denegat la oferta");
+        } else {
+            return redirect()->intended('/student');
         }
     }
+
+    public function editUsr($id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            $data = User::where('id', $id)->first();
+            return view('admin.editUser', compact('data'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function changePassword($id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            $data = User::where('id', $id)->first();
+            return view('admin.changePassword', compact('data'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function updateAdmin(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+            /*
+        $caps_validar = [
+            'codi' => 'required|numeric',
+            'isbn' => 'required|string|max:100',
+            'dni' => 'required|string|max:100',
+            'data_prestec' => 'required|date',
+            'data_retorn' => 'required|date'
+        ];
+
+
+        $mensaje_Error = [
+            'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+        ];
+                $this->validate($request, $caps_validar, $mensaje_Error);
+
+*/
+
+            $dades_usuari = request()->except('_token', '_method');
+
+            User::where('id', $id)->update($dades_usuari);
+            return redirect('admin/users')->with('mensaje', 'usuari modificat');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+
+    public function updatePassword(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+            /*
+        $caps_validar = [
+            'codi' => 'required|numeric',
+            'isbn' => 'required|string|max:100',
+            'dni' => 'required|string|max:100',
+            'data_prestec' => 'required|date',
+            'data_retorn' => 'required|date'
+        ];
+
+
+        $mensaje_Error = [
+            'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+        ];
+                $this->validate($request, $caps_validar, $mensaje_Error);
+
+*/
+
+            $data = Hash::make($request->password);
+            User::where('id', $id)->update(array('password' => $data));
+            return redirect('admin/users')->with('mensaje', 'contrasenya modificada');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+
+
 
     public function deleteUsr($id)
     {
@@ -195,7 +280,7 @@ class AdminController extends Controller
 
             User::where('id', $id)->first()->delete();
             return redirect("admin/users");
-        } else if ($user->type_user == 1) {
+        } else {
             return redirect()->intended('/student');
         }
     }
@@ -245,6 +330,18 @@ class AdminController extends Controller
             $username =  $datos->sortBy('username')->pluck('username')->unique();
             $email =  $datos->sortBy('email')->pluck('email')->unique();
             $type_user =  $datos->sortBy('type_user')->pluck('type_user')->unique();
+
+            $type_user = $type_user->map(function ($item) {
+                switch ($item) {
+                    case '1':
+                        $item = 'Admin';
+                        break;
+                    case '2':
+                        $item = 'Permis Lectura';
+                        break;
+                }
+                return $item;
+            });
 
             return view('admin.users', compact('id', 'username', 'email', 'type_user'));
         }
