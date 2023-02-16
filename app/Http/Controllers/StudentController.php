@@ -41,9 +41,9 @@ class StudentController extends Controller
         $offer = Offer::where('offer_id', $id)->where('offer_visiblity', "1")->firstOrFail();
         $student_id = Auth::user()->id;
 
-        $result = Student_Request::where('offer_id', $offer->offer_id)->where($student_id)->first();
+        $result = Student_Request::where('offer_id', $offer->offer_id)->where('student_id', $student_id)->first();
 
-        if (!$result) {
+        if ($result) {
             return redirect('student')->with('mensaje', 'La peticio sobre aquesta oferta ja esta realitzada');
         }
 

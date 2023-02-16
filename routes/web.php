@@ -44,6 +44,10 @@ Route::get('/admin/accept/{id}', [AdminController::class, 'accept'])->name('acce
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit')->middleware('auth');
 Route::patch('/admin/updatePublish/{id}', [AdminController::class, 'updatePublish'])->name('updatePublish')->middleware('auth');
 Route::get('/admin/deny/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
+Route::get('/admin/getAllPublicData', [AdminController::class, 'getAllPublicData'])->name('getAllPublicData')->middleware('auth');
+Route::get('/admin/borsa-publica', [AdminController::class, 'ManajePublicOffers'])->name('ManajePublicOffers')->middleware('auth');
+
+
 
 //manejar users admin
 Route::get('/admin/getUsersData', [AdminController::class, 'getUsersData'])->name('getUsersData')->middleware('auth');
