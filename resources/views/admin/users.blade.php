@@ -19,6 +19,19 @@
         </div>
         @endif
 
+        @if(count($errors)>0)
+
+        <div class="alert alert-danger">
+            <ul>
+                @foreach( $errors->all() as $error)
+                <li> {{ $error }}</li>
+                @endforeach
+            </ul>
+
+        </div>
+
+        @endif
+
         <div class="table-responsive">
 
             <table id="ofertes" class="display" style="width:100%">
@@ -120,7 +133,7 @@
                     orderable: false,
                     "render": function (data, type, row, meta) {
 
-                        if (row.type_user != "Admin") {
+                        if (row.type_user != "Admin" && '{{ Auth:: user()-> type_user }}' != 2) {
                             return `
                                     <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
                                     <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
@@ -128,9 +141,8 @@
                                         `;
                         } else {
                             return `
-                                <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
+                                    <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
                                     <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
-
                                     `;
                         }
                     }

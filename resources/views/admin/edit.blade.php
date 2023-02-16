@@ -7,6 +7,13 @@
 
     <div class="container">
 
+        @if(Session::has('mensaje'))
+
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ Session::get('mensaje') }}
+        </div>
+        @endif
 
         <div class="form-group">
 
