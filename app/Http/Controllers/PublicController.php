@@ -72,7 +72,7 @@ class PublicController extends Controller
 
             if ($user->type_user == 0) {
                 return redirect()->intended('/student');
-            } else if ($user->type_user == 1) {
+            } else {
                 return redirect()->intended('/admin');
             }
 

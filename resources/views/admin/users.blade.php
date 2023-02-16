@@ -11,6 +11,14 @@
 
         <h1>admin users</h1>
 
+        @if(Session::has('mensaje'))
+
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ Session::get('mensaje') }}
+        </div>
+        @endif
+
         <div class="table-responsive">
 
             <table id="ofertes" class="display" style="width:100%">
@@ -114,13 +122,16 @@
 
                         if (row.type_user != "Admin") {
                             return `
-                                <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
-                                <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
-                               `;
+                                    <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
+                                    <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
+                                    <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
+                                        `;
                         } else {
                             return `
                                 <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
-                               `;
+                                    <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
+
+                                    `;
                         }
                     }
                 }

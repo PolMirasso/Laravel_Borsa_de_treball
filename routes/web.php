@@ -38,6 +38,7 @@ Route::get('/public/getData', [PublicController::class, 'getData'])->name('getDa
 Route::resource('public', PublicController::class);
 
 //manejar ofertes admin
+
 Route::get('/admin/getAllData', [AdminController::class, 'getAllData'])->name('getAllData')->middleware('auth');
 Route::get('/admin/accept/{id}', [AdminController::class, 'accept'])->name('accept')->middleware('auth');
 Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit')->middleware('auth');
@@ -45,13 +46,15 @@ Route::patch('/admin/updatePublish/{id}', [AdminController::class, 'updatePublis
 Route::get('/admin/deny/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
 
 //manejar users admin
-Route::get('/admin/user/edit/{id}', [AdminController::class, 'userEdit'])->name('userEdit')->middleware('auth');
-Route::get('/admin/user/delete/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
 Route::get('/admin/getUsersData', [AdminController::class, 'getUsersData'])->name('getUsersData')->middleware('auth');
 Route::get('/admin/users', [AdminController::class, 'usersView'])->name('usersView')->middleware('auth');
 Route::get('/admin/addUsr', [AdminController::class, 'addUsr'])->name('addUsr')->middleware('auth');
 Route::post('/admin/validar-registro', [AdminController::class, 'registerAdmin'])->name('validar-admin')->middleware('auth');
 Route::get('/admin/delete/{id}', [AdminController::class, 'deleteUsr'])->name('deleteUsr')->middleware('auth');
+Route::get('/admin/user/edit/{id}', [AdminController::class, 'editUsr'])->name('editUsr')->middleware('auth');
+Route::post('/admin/updateAdmin/{id}', [AdminController::class, 'updateAdmin'])->name('updateAdmin')->middleware('auth');
+Route::get('/admin/changePassword/{id}', [AdminController::class, 'changePassword'])->name('changePassword')->middleware('auth');
+Route::post('/admin/updatePassword/{id}', [AdminController::class, 'updatePassword'])->name('updatePassword')->middleware('auth');
 
 //manejar peticions alumnes admins
 Route::get('/admin/getStudentRequests', [AdminController::class, 'getStudentRequests'])->name('getStudentRequests')->middleware('auth');

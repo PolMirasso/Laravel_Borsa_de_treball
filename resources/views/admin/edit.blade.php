@@ -76,6 +76,8 @@
                 <input type="text" class="form-control" name="offer_sector"
                     value="{{ isset($data->offer_sector)?$data->offer_sector:old('offer_sector') }}" id="offer_sector">
 
+
+
                 <label for="characteristics">characteristics: </label>
                 <input type="text" class="form-control" name="characteristics"
                     value="{{ isset($data->characteristics)?$data->characteristics:old('characteristics') }}"

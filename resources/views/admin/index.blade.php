@@ -6,6 +6,13 @@
 
     <h1>logged admin</h1>
 
+    @if(Session::has('mensaje'))
+
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ Session::get('mensaje') }}
+    </div>
+    @endif
 
     <div class="panel panel-default">
 
@@ -192,7 +199,6 @@
             </table>
 
 
-
         </div>
     </div>
 
@@ -214,6 +220,10 @@
 
 <script>
     $(document).ready(function () {
+
+
+        console.log("{{ Auth:: user()-> type_user }}");
+
         var table = $('#ofertes').DataTable({
             ajax: {
                 url: " {{ route('getAllData') }}"
@@ -239,11 +249,18 @@
                     "data": 'id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
-                        return `
+
+                        if ("{{ Auth:: user()-> type_user }}" == 1) {
+                            return `
                                 <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class='btn btn-success'>Acceptar<a/>
                                 <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
                                 <a href="{{ url('admin/deny/${data}') }}" onclick="return confirm('Segu que vols eliminar la oferta')" class='btn btn-danger'>Eliminar<a/> 
                                `;
+                        } else {
+                            return `<p>No disponible</p>`;
+                        }
+
+
                     }
                 }
             ],

@@ -149,14 +149,10 @@
                     "data": 'student_id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
-
                         return `
                             <a href="{{ url('admin/downloadCV/${data}') }}" class='btn btn-warning'>Descarregar CV<a/> 
                             <a href="{{ url('admin/requestVisibility/${data}/${row.offer_id}') }}" onclick="return confirm('Segu que vols eliminar la peticio ')" class='btn btn-danger'>Eliminar<a/> 
                             `;
-
-
-
                     }
                 }
             ],
