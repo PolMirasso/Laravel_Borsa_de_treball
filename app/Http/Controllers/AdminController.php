@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class AdminController extends Controller
 {
+
+    //Offers Manajer
+
     public function index()
     {
 
@@ -100,7 +103,7 @@ class AdminController extends Controller
         if ($user->type_user == 1) {
 
             $caps_validar = [
-                'company_email' => 'required|string|max:100',
+                'company_email' => 'required|email',
                 'company_type' => 'required|string|max:100',
                 'company_nif' => 'required|string|max:8',
                 'commercial_name' => 'required|string|max:8',
@@ -181,11 +184,15 @@ class AdminController extends Controller
         }
     }
 
+
+
+    //User Manager
+
     public function editUsr($id)
     {
         $user = Auth::user();
 
-        if ($user->type_user == 1) {
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
             $data = User::where('id', $id)->first();
             return view('admin.editUser', compact('data'));
@@ -198,7 +205,7 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 1) {
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
             $data = User::where('id', $id)->first();
             return view('admin.changePassword', compact('data'));
@@ -211,28 +218,35 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 1) {
-            /*
-        $caps_validar = [
-            'codi' => 'required|numeric',
-            'isbn' => 'required|string|max:100',
-            'dni' => 'required|string|max:100',
-            'data_prestec' => 'required|date',
-            'data_retorn' => 'required|date'
-        ];
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
+            $caps_validar = [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email',
+            ];
 
-        $mensaje_Error = [
-            'required' => 'El :attribute es obligatori', #en cas de algun camp falti
-        ];
-                $this->validate($request, $caps_validar, $mensaje_Error);
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+            ];
 
-*/
+            if ($user->type_user == 2) {
+                if ($user->id != $id) {
+                    return redirect('admin/users')->with('mensaje', "No pots modificar aquest usuari.");
+                }
+            }
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
+
+            $result = User::where('email', $request->email)->first();
+
+            if (!$result) {
+                return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
+            }
 
             $dades_usuari = request()->except('_token', '_method');
 
             User::where('id', $id)->update($dades_usuari);
-            return redirect('admin/users')->with('mensaje', 'usuari modificat');
+            return redirect('admin/users')->with('mensaje', "El usuari s'ha modificat.");
         } else {
             return redirect()->intended('/student');
         }
@@ -243,34 +257,32 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 1) {
-            /*
-        $caps_validar = [
-            'codi' => 'required|numeric',
-            'isbn' => 'required|string|max:100',
-            'dni' => 'required|string|max:100',
-            'data_prestec' => 'required|date',
-            'data_retorn' => 'required|date'
-        ];
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $caps_validar = [
+                'password' => 'required|string|max:100',
+            ];
 
 
-        $mensaje_Error = [
-            'required' => 'El :attribute es obligatori', #en cas de algun camp falti
-        ];
-                $this->validate($request, $caps_validar, $mensaje_Error);
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+            ];
 
-*/
+            if ($user->type_user == 2) {
+                if ($user->id != $id) {
+                    return redirect('admin/users')->with('mensaje', "No pots modificar aquest usuari.");
+                }
+            }
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
 
             $data = Hash::make($request->password);
             User::where('id', $id)->update(array('password' => $data));
-            return redirect('admin/users')->with('mensaje', 'contrasenya modificada');
+            return redirect('admin/users')->with('mensaje',  "S'ha modificat la contrasenya");
         } else {
             return redirect()->intended('/student');
         }
     }
-
-
-
 
     public function deleteUsr($id)
     {
@@ -289,10 +301,7 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-
+        if ($user->type_user == 1) {
             $data = User::where('type_user', "!=", "0")->select(
                 'id',
                 'username',
@@ -313,6 +322,29 @@ class AdminController extends Controller
             });
 
             return compact('data');
+        } else if ($user->type_user == 2) {
+            $data = User::where('type_user', "!=", "0")->select(
+                'id',
+                'username',
+                'email',
+                'type_user',
+            )->where('id', $user->id)->get();
+
+            $data->map(function ($item) {
+                switch ($item->type_user) {
+                    case '1':
+                        $item->type_user = 'Admin';
+                        break;
+                    case '2':
+                        $item->type_user = 'Permis Lectura';
+                        break;
+                }
+                return $item;
+            });
+
+            return compact('data');
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -320,9 +352,7 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
 
             $datos = User::where('type_user', "!=", "0")->get();
@@ -344,6 +374,8 @@ class AdminController extends Controller
             });
 
             return view('admin.users', compact('id', 'username', 'email', 'type_user'));
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -351,10 +383,10 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1) {
             return  view('admin.addUser');
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -362,55 +394,66 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1) {
             $newUser = new User();
+
+            $caps_validar = [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email',
+                'password' => 'required|string|max:100',
+            ];
+
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+            ];
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
+
+            $result = User::where('email', $request->email)->first();
+
+            if (!$result) {
+                return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
+            }
 
             $newUser->username = $request->username;
             $newUser->email = $request->email;
             $newUser->course = null;
             $newUser->population = null;
             $newUser->mobility = null;
-            $newUser->password = Hash::make($request->password); //encriptar contra
+            $newUser->password = Hash::make($request->password); //encriptar contrasenya
             $newUser->type_user = 2;
 
             $newUser->save();
-            return redirect('admin/users');
+            return redirect('admin/users')->with('mensaje',  "S'ha registrat el usuari");
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
+    //Student request manager
 
     public function getStudentRequests()
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1 || $user->type_user == 2) {
             $data = Student_Request::with('student', 'offer')->where('visibility', '0')->get();
 
             return compact('data');
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
 
-    public function requestView() //peticions alumnes
+    public function requestView()
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-
-
-            //      $datos = User::where('type_user', "!=", "0")->get();
-            //    $id = $datos->sortBy('id')->pluck('id')->unique();
-            //  $username =  $datos->sortBy('username')->pluck('username')->unique();
-            //            $email =  $datos->sortBy('email')->pluck('email')->unique();
-            //          $type_user =  $datos->sortBy('type_user')->pluck('type_user')->unique();
-
+        if ($user->type_user == 1 || $user->type_user == 2) {
             return view('admin.requestStudent');
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -419,10 +462,7 @@ class AdminController extends Controller
 
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
-
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
             $data = User::where('id', $id)->select(
                 'cv_name',
@@ -434,6 +474,8 @@ class AdminController extends Controller
             $newName = $data->username . ".pdf";
 
             return response()->download($file, $newName);
+        } else {
+            return redirect()->intended('/student');
         }
     }
 
@@ -441,14 +483,13 @@ class AdminController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->type_user == 0) {
-            return redirect()->intended('/student');
-        } else if ($user->type_user == 1) {
+        if ($user->type_user == 1 || $user->type_user == 2) {
 
-
-            $data = Student_Request::where('student_id', $idStudent)->where('offer_id', $idOffer)->update(['visibility' => 1]);
+            Student_Request::where('student_id', $idStudent)->where('offer_id', $idOffer)->update(['visibility' => 1]);
 
             return view('admin.requestStudent');
+        } else if ($user->type_user == 1) {
+            return redirect()->intended('/student');
         }
     }
 }

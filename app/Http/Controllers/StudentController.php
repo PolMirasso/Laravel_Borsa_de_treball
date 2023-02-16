@@ -41,6 +41,12 @@ class StudentController extends Controller
         $offer = Offer::where('offer_id', $id)->where('offer_visiblity', "1")->firstOrFail();
         $student_id = Auth::user()->id;
 
+        $result = Offer::where('offer_id', $offer->offer_id)->where($student_id)->first();
+
+        if (!$result) {
+            return redirect('student')->with('mensaje', 'La peticio sobre aquesta oferta ja esta realitzada');
+        }
+
         $s_Request['student_id'] = $student_id;
         $s_Request['offer_id'] = $offer->offer_id;
         $s_Request['msg_user'] = $request->text_contact;
@@ -49,6 +55,6 @@ class StudentController extends Controller
 
         Student_Request::insert($s_Request); #guardar a la db 
 
-        return redirect('student')->with('mensaje', 'enviat');
+        return redirect('student')->with('mensaje', "S'ha enviat la proposta");
     }
 }

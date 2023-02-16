@@ -19,7 +19,25 @@ class PublicController extends Controller
 
     public function register(Request $request)
     {
-        //validar dades '' or '' etc...
+        // validar dades '' or '' etc...
+        // verificar register si el correu ja existeix
+
+        $caps_validar = [
+            'username' => 'required|string|max:100',
+            'email' => 'required|string|max:100',
+            'password' => 'required|string|max:100',
+            'course' => 'required|string|max:100',
+            'population' => 'required|string|max:100',
+            'mobility' => 'required|string|max:100',
+            'cv_file' => 'required|mime:pdf|max:10000',
+
+        ];
+
+        $mensaje_Error = [
+            'required' => 'El camp :attribute es obligatori', #en cas de algun camp falti
+        ];
+
+        $this->validate($request, $caps_validar, $mensaje_Error);
 
 
         $user = new User();
@@ -35,7 +53,6 @@ class PublicController extends Controller
         $uniqueFileName = (uniqid() . '-' . $request->username . '.pdf');
 
 
-        //        'cv_name' => 'required|mime:pdf|max:10000',
 
         if ($request->hasFile('cv_file')) {
             $user->cv_name = $request->file('cv_file')->storeAs('uploads', $uniqueFileName, 'public');
@@ -44,13 +61,8 @@ class PublicController extends Controller
 
         $user->save();
 
-
         Auth::login($user); //guardar usuari a db
 
-
-        //guardar cv
-
-        //  return redirect(route('student.index'));
         return redirect('student.index');
     }
 
