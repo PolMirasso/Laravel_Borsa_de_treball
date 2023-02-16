@@ -10,13 +10,13 @@
 
 @section('content_info')
 
-<p>sadas</p>
-
 <a href="{{ url('/login') }}">login</a>
 <br>
 <a href="{{ url('/register') }}">register</a>
 <br>
 <a href="{{ url('company/create') }}">company</a>
+<br>
+<a href="{{ url('borsa-treball') }}">borsa treball publica</a>
 
 
 @endsection

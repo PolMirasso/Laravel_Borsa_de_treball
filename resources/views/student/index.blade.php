@@ -7,6 +7,27 @@
 
         <h1>ofertes</h1>
 
+        @if(Session::has('mensaje'))
+
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ Session::get('mensaje') }}
+        </div>
+        @endif
+
+        @if(count($errors)>0)
+
+        <div class="alert alert-danger">
+            <ul>
+                @foreach( $errors->all() as $error)
+                <li> {{ $error }}</li>
+                @endforeach
+            </ul>
+
+        </div>
+
+        @endif
+
         <div class="table-responsive">
 
             <table id="ofertes" class="display" style="width:100%">

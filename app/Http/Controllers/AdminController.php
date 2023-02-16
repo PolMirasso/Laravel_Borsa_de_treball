@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class AdminController extends Controller
 {
 
+
     //Offers Manajer
 
     public function index()
@@ -89,7 +90,7 @@ class AdminController extends Controller
         $user = Auth::user();
 
         if ($user->type_user == 1) {
-            $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->first();
+            $data = Offer::where('offer_id', $id)->first();
             return view('admin.edit', compact('data'));
         } else {
             return redirect()->intended('/student');
@@ -124,9 +125,7 @@ class AdminController extends Controller
 
             $this->validate($request, $caps_validar, $mensaje_Error);
 
-            $dades_form = request()->except('_token', '_method');
-
-            $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->select(
+            $data = Offer::where('offer_id', $id)->select(
                 'company_email',
                 'company_type',
                 'company_nif',
@@ -143,23 +142,24 @@ class AdminController extends Controller
                 'modification_status'
             )->first();
 
-            $data->company_email = $dades_form['company_email'];
-            $data->company_type = $dades_form['company_type'];
-            $data->company_nif = $dades_form['company_nif'];
-            $data->commercial_name = $dades_form['commercial_name'];
-            $data->contact_person = $dades_form['contact_person'];
-            $data->company_phone = $dades_form['company_phone'];
-            $data->company_population = $dades_form['company_population'];
-            $data->offer_type = $dades_form['offer_type'];
-            $data->working_day_type = $dades_form['working_day_type'];
-            $data->offer_sector = $dades_form['offer_sector'];
-            $data->characteristics = $dades_form['characteristics'];
+
+            $data->company_email = $request->company_email;
+            $data->company_type = $request->company_type;
+            $data->company_nif = $request->company_nif;
+            $data->commercial_name = $request->commercial_name;
+            $data->contact_person = $request->contact_person;
+            $data->company_phone = $request->company_phone;
+            $data->company_population = $request->company_population;
+            $data->offer_type = $request->offer_type;
+            $data->working_day_type = $request->working_day_type;
+            $data->offer_sector = $request->offer_sector;
+            $data->characteristics = $request->characteristics;
 
             $data->offer_state = "Accepted";
             $data->offer_visiblity = 1;
             $data->modification_status = "1";
 
-            Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
+            Offer::where('offer_id', $id)->update($data->toArray());
 
             return redirect('admin')->with('mensaje', "S'ha modificat i publicat la oferta");
         } else {
@@ -174,11 +174,64 @@ class AdminController extends Controller
 
         if ($user->type_user == 1) {
 
-            $data = Offer::where('offer_visiblity', 0)->where('offer_id', $id)->select('offer_state', 'offer_visiblity')->first();
-            $data->offer_state = "Deny";
+            $data = Offer::where('offer_id', $id)->select('offer_state', 'offer_visiblity')->first();
+            $data->offer_state = "Deny || Canceled";
             $data->offer_visiblity = 2;
-            Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
+            Offer::where('offer_id', $id)->update($data->toArray());
             return redirect('admin')->with('mensaje', "S'ha denegat la oferta");
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function ManajePublicOffers()
+    {
+
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $datos = Offer::where('offer_visiblity', "1")->get();
+            $id = $datos->sortBy('offer_id')->pluck('offer_id')->unique();
+            $company_email =  $datos->sortBy('company_email')->pluck('company_email')->unique();
+            $company_type =  $datos->sortBy('company_type')->pluck('company_type')->unique();
+            $company_nif =  $datos->sortBy('company_nif')->pluck('company_nif')->unique();
+            $commercial_name =  $datos->sortBy('commercial_name')->pluck('commercial_name')->unique();
+            $contact_person =  $datos->sortBy('contact_person')->pluck('contact_person')->unique();
+            $company_phone =  $datos->sortBy('company_phone')->pluck('company_phone')->unique();
+            $company_population =  $datos->sortBy('company_population')->pluck('company_population')->unique();
+            $offer_type =  $datos->sortBy('offer_type')->pluck('offer_type')->unique();
+            $working_day_type =  $datos->sortBy('working_day_type')->pluck('working_day_type')->unique();
+            $offer_sector =  $datos->sortBy('offer_sector')->pluck('offer_sector')->unique();
+            $characteristics =  $datos->sortBy('characteristics')->pluck('characteristics')->unique();
+
+            return view('admin.publicOffersConfig', compact('id', 'company_email', 'company_type', 'company_nif', 'commercial_name', 'contact_person', 'company_phone', 'company_population', 'offer_type', 'working_day_type', 'offer_sector', 'characteristics'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function getAllPublicData()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+            $data = Offer::where('offer_visiblity', "1")->select(
+                'offer_id as id',
+                'company_email',
+                'company_type',
+                'company_nif',
+                'commercial_name',
+                'contact_person',
+                'company_phone',
+                'company_population',
+                'offer_type',
+                'working_day_type',
+                'offer_sector',
+                'characteristics'
+            )->get();
+
+            return compact('data');
         } else {
             return redirect()->intended('/student');
         }
@@ -239,7 +292,7 @@ class AdminController extends Controller
 
             $result = User::where('email', $request->email)->first();
 
-            if (!$result) {
+            if ($result) {
                 return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
             }
 
@@ -429,6 +482,13 @@ class AdminController extends Controller
             return redirect()->intended('/student');
         }
     }
+
+
+
+
+
+
+
 
     //Student request manager
 
