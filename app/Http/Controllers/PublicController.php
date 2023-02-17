@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Offer;
+use \App\Mail\SendMail;
 
 class PublicController extends Controller
 {
@@ -120,7 +121,8 @@ class PublicController extends Controller
             'offer_type',
             'working_day_type',
             'offer_sector',
-            'characteristics'
+            'characteristics',
+            'created_at'
         )->get();
 
         return compact('data');

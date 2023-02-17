@@ -60,7 +60,8 @@ class AdminController extends Controller
                 'offer_type',
                 'working_day_type',
                 'offer_sector',
-                'characteristics'
+                'characteristics',
+                'created_at'
             )->get();
 
             return compact('data');
@@ -550,6 +551,18 @@ class AdminController extends Controller
             return view('admin.requestStudent');
         } else if ($user->type_user == 1) {
             return redirect()->intended('/student');
+        }
+    }
+
+    public function moreInfo($idStudent, $idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->get();
+
+            return view('admin.moreInfo', compact('data'));
         }
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Offer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; #encriptar contrasenyes
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use \App\Mail\SendMail;
 
 class CompanyController extends Controller
 {
@@ -41,6 +43,14 @@ class CompanyController extends Controller
         $offers_data = request()->except('_token'); #excluir el _token
 
         Offer::insert($offers_data); #guardar a la db 
+
+        $details = [
+            'subject' => 'Solicitud de ' . $request->commercial_name,
+            'title' => 'La empresa ' . $request->commercial_name . ' solicita publicacio en borsa de treball publica',
+            'body' => 'La empresa ' . $request->commercial_name . ', amb correu ' . $request->company_email . ' ha enviat una publicacio en la borsa de treball</a>'
+        ];
+
+        Mail::to(env('ADMIN_RECIVE_MAIL', ''))->send(new SendMail($details));
 
         return redirect('/')->with('mensaje', "S'han enviat les dades correctament, un cop aprovades seran publicades"); #redirigir i enviar msg
     }
