@@ -5,6 +5,11 @@ use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\CompanyController;
 use \App\Http\Controllers\PublicController;
 use \App\Http\Controllers\StudentController;
+
+use \App\Http\Controllers\MailController;
+
+use \App\Mail\OfferRecived;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +20,18 @@ use \App\Http\Controllers\StudentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+/*
+Route::get('/offerrecivedtest', function () {
+    //return new OfferRecived("Pol");
+
+    $response = Mail::to('NO-REPLY-BORSA@POLMIRASSO.CAT')
+        ->bcc('polmirasso@polmirasso.cat')
+        ->send(new OfferRecived("Pol"));
+
+    dump($response);
+});*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,6 +82,7 @@ Route::get('/admin/getStudentRequests', [AdminController::class, 'getStudentRequ
 Route::get('/admin/requestView', [AdminController::class, 'requestView'])->name('requestView')->middleware('auth');
 Route::get('/admin/downloadCV/{id}', [AdminController::class, 'downloadCV'])->name('downloadCV')->middleware('auth');
 Route::get('/admin/requestVisibility/{idStudent}/{idOffer}', [AdminController::class, 'requestVisibility'])->name('requestVisibility')->middleware('auth');
+Route::get('/admin/moreInfo/{idStudent}/{idOffer}', [AdminController::class, 'moreInfo'])->name('moreInfo')->middleware('auth');
 
 Route::resource('admin', AdminController::class)->middleware('auth');
 

@@ -40,6 +40,7 @@
                             <th>working_day_type</th>
                             <th>offer_sector</th>
                             <th>characteristics</th>
+                            <th>created_at</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -67,6 +68,10 @@
                             <td>
                                 <input type="text" class="form-control filter-input" placeholder="filtre 6"
                                     data-column="5">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control filter-input" placeholder="filtre 6"
+                                    data-column="6">
                             </td>
                         </tr>
 
@@ -132,6 +137,8 @@
 
                             <td></td>
 
+                            <td></td>
+
                         </tr>
                     </tfoot>
                 </table>
@@ -171,6 +178,7 @@
                 { "targets": 3, "data": 'working_day_type' },
                 { "targets": 4, "data": 'offer_sector' },
                 { "targets": 5, "data": 'characteristics' },
+                { "targets": 6, "data": 'created_at' },
 
             ],
         });
