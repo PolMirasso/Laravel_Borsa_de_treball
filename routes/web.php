@@ -63,6 +63,7 @@ Route::patch('/admin/updatePublish/{id}', [AdminController::class, 'updatePublis
 Route::get('/admin/deny/{id}', [AdminController::class, 'deny'])->name('deny')->middleware('auth');
 Route::get('/admin/getAllPublicData', [AdminController::class, 'getAllPublicData'])->name('getAllPublicData')->middleware('auth');
 Route::get('/admin/borsa-publica', [AdminController::class, 'ManajePublicOffers'])->name('ManajePublicOffers')->middleware('auth');
+Route::get('/admin/moreInfoCompanyOffer/{idOffer}', [AdminController::class, 'moreInfoCompanyOffer'])->name('moreInfoCompanyOffer')->middleware('auth');
 
 
 
@@ -85,12 +86,22 @@ Route::get('/admin/requestVisibility/{idStudent}/{idOffer}', [AdminController::c
 Route::get('/admin/moreInfo/{idStudent}/{idOffer}', [AdminController::class, 'moreInfo'])->name('moreInfo')->middleware('auth');
 
 //manejar users students
-
-
 Route::get('/admin/getStudentData', [AdminController::class, 'getStudentData'])->name('getStudentData')->middleware('auth');
 Route::get('/admin/studentView', [AdminController::class, 'studentView'])->name('studentView')->middleware('auth');
 Route::get('/admin/user/editStudent/{id}', [AdminController::class, 'editStudent'])->name('editStudent')->middleware('auth');
 Route::post('/admin/updateStudent/{id}', [AdminController::class, 'updateStudent'])->name('updateStudent')->middleware('auth');
+
+//logs 
+Route::get('/admin/getDeletedStudentRequests', [AdminController::class, 'getDeletedStudentRequests'])->name('getDeletedStudentRequests')->middleware('auth');
+Route::get('/admin/logRequests', [AdminController::class, 'logRequests'])->name('logRequests')->middleware('auth');
+Route::get('/admin/requestRestoreVisibility/{idStudent}/{idOffer}', [AdminController::class, 'requestRestoreVisibility'])->name('requestRestoreVisibility')->middleware('auth');
+Route::get('/admin/moreInfoNoVisible/{idStudent}/{idOffer}', [AdminController::class, 'moreInfoNoVisible'])->name('moreInfoNoVisible')->middleware('auth');
+Route::get('/admin/getDeletedAllData', [AdminController::class, 'getDeletedAllData'])->name('getDeletedAllData')->middleware('auth');
+Route::get('/admin/logOffers', [AdminController::class, 'logOffers'])->name('logOffers')->middleware('auth');
+Route::get('/admin/recover/{id}', [AdminController::class, 'recover'])->name('recover')->middleware('auth');
+Route::get('/admin/moreInfoOffer/{idOffer}', [AdminController::class, 'moreInfoOffer'])->name('moreInfoOffer')->middleware('auth');
+
+
 
 Route::resource('admin', AdminController::class)->middleware('auth');
 

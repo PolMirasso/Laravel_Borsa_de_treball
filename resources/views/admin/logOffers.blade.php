@@ -238,7 +238,7 @@
 
         var table = $('#ofertes').DataTable({
             ajax: {
-                url: " {{ route('getAllData') }}"
+                url: " {{ route('getDeletedAllData') }}"
             },
             language: {
                 url: "https://cdn.datatables.net/plug-ins/1.13.2/i18n/ca.json",
@@ -264,11 +264,9 @@
 
                         if ("{{ Auth:: user()-> type_user }}" == 1) {
                             return `
-                                <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class='btn btn-success'>Acceptar</a>
+                                <a href="{{ url('admin/recover/${data}') }}" onclick="return confirm('Segu que vols recuperar la oferta')" class='btn btn-success'>Recuperar</a>
                                 <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar</a> 
-                                <a href="{{ url('admin/deny/${data}') }}" onclick="return confirm('Segu que vols eliminar la oferta')" class='btn btn-danger'>Eliminar</a> 
-                                <a href="{{ url('admin/moreInfoCompanyOffer/${data}') }}" class='btn btn-secondary'>Mes informacio</a> 
-
+                                <a href="{{ url('admin/moreInfoOffer/${data}') }}" class='btn btn-secondary'>Mes informacio</a> 
                                     `;
                         } else {
                             return `<p>No disponible</p>`;
