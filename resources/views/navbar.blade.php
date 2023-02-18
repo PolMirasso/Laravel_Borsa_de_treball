@@ -41,6 +41,10 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('requestView') }}">requestView</a>
                 </li>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('studentView') }}">student users </a>
+                </li>
 
 
 

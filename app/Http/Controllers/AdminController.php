@@ -293,7 +293,8 @@ class AdminController extends Controller
 
             $result = User::where('email', $request->email)->first();
 
-            if ($result) {
+
+            if ($result->email == $user->email) {
                 return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
             }
 
@@ -486,11 +487,6 @@ class AdminController extends Controller
 
 
 
-
-
-
-
-
     //Student request manager
 
     public function getStudentRequests()
@@ -560,9 +556,137 @@ class AdminController extends Controller
 
         if ($user->type_user == 1 || $user->type_user == 2) {
 
-            $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->get();
+            $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->first();
 
             return view('admin.moreInfo', compact('data'));
+        }
+    }
+
+
+    //student user info
+
+    public function studentView()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $datos = User::where('type_user', "0")->get();
+            $id = $datos->sortBy('id')->pluck('id')->unique();
+            $username =  $datos->sortBy('username')->pluck('username')->unique();
+            $email =  $datos->sortBy('email')->pluck('email')->unique();
+            $course =  $datos->sortBy('course')->pluck('course')->unique();
+            $population =  $datos->sortBy('population')->pluck('population')->unique();
+            $mobility =  $datos->sortBy('mobility')->pluck('mobility')->unique();
+
+            $mobility = $mobility->map(function ($item) {
+                switch ($item) {
+                    case '1':
+                        $item = 'Si';
+                        break;
+                    case '0':
+                        $item = 'No';
+                        break;
+                }
+                return $item;
+            });
+
+            return view('admin.studentUsers', compact('id', 'username', 'email', 'course', 'population', 'mobility'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function getStudentData()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+            $data = User::where('type_user', "0")->select(
+                'id',
+                'username',
+                'email',
+                'course',
+                'population',
+                'mobility',
+            )->get();
+
+            $data->map(function ($item) {
+                switch ($item->mobility) {
+                    case '1':
+                        $item->mobility = 'Si';
+                        break;
+                    case '2':
+                        $item->mobility = 'No';
+                        break;
+                }
+                return $item;
+            });
+
+            return compact('data');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function editStudent($id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            $data = User::where('id', $id)->first();
+            return view('admin.editStudent', compact('data'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function updateStudent(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            $caps_validar = [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email',
+                'course' => 'required|string|max:100',
+                'population' => 'required|string|max:100',
+            ];
+
+
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+            ];
+
+            if ($user->type_user == 2) {
+                if ($user->id != $id) {
+                    return redirect('admin/users')->with('mensaje', "No pots modificar aquest usuari.");
+                }
+            }
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
+
+            $result = User::where('email', $request->email)->first();
+
+            if ($result) {
+                if ($result->email == $user->email) {
+                    return redirect('admin/studentView')->with('mensaje',  "El correu ja esta registrat");
+                }
+            }
+
+            $dades_usuari = request()->except('_token', '_method');
+
+            if ($request->hasFile('cv_name')) {
+                $uniqueFileName = (uniqid() . '-' . $request->username . '.pdf');
+                $dades_usuari['cv_name'] = $request->file('cv_name')->storeAs('uploads', $uniqueFileName, 'public');
+            }
+
+            User::where('id', $id)->update($dades_usuari);
+            return redirect('admin/studentView')->with('mensaje', "El usuari s'ha modificat.");
+        } else {
+            return redirect()->intended('/student');
         }
     }
 }
