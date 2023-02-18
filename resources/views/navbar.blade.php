@@ -32,18 +32,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav w-100">
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('ManajePublicOffers') }}">PublicOffersConfig</a>
                 </li>
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('usersView') }}">admin users</a>
                 </li>
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('requestView') }}">requestView</a>
                 </li>
-                </li>
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('studentView') }}">student users </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('logRequests') }}">logRequests </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('logOffers') }}">logOffers </a>
                 </li>
 
 

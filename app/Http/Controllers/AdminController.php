@@ -485,6 +485,17 @@ class AdminController extends Controller
         }
     }
 
+    public function moreInfoCompanyOffer($idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $data = Offer::where("offer_id", $idOffer)->first();
+
+            return view('admin.moreInfoCompanyOffer', compact('data'));
+        }
+    }
 
 
     //Student request manager
@@ -684,9 +695,144 @@ class AdminController extends Controller
             }
 
             User::where('id', $id)->update($dades_usuari);
-            return redirect('admin/studentView')->with('mensaje', "El usuari s'ha modificat.");
+            return redirect('admin/studentView')->with('mensaje', "El alumne s'ha modificat.");
         } else {
             return redirect()->intended('/student');
+        }
+    }
+
+    //logs 
+
+    public function getDeletedStudentRequests()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+            $data = Student_Request::with('student', 'offer')->where('visibility', '1')->get();
+            return compact('data');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function logRequests()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+            return view('admin.logRequests');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+
+    public function requestRestoreVisibility($idStudent, $idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            Student_Request::where('student_id', $idStudent)->where('offer_id', $idOffer)->update(['visibility' => 0]);
+
+            return view('admin.logRequests');
+        } else if ($user->type_user == 1) {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function moreInfoNoVisible($idStudent, $idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->first();
+
+            return view('admin.moreInfoNoVisible', compact('data'));
+        }
+    }
+
+    public function getDeletedAllData()
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+            $data = Offer::where('offer_visiblity', "2")->select(
+                'offer_id as id',
+                'company_email',
+                'company_type',
+                'company_nif',
+                'commercial_name',
+                'contact_person',
+                'company_phone',
+                'company_population',
+                'offer_type',
+                'working_day_type',
+                'offer_sector',
+                'characteristics',
+                'created_at'
+            )->get();
+
+            return compact('data');
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function logOffers()
+    {
+
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $datos = Offer::where('offer_visiblity', "2")->get();
+            $id = $datos->sortBy('offer_id')->pluck('offer_id')->unique();
+            $company_email =  $datos->sortBy('company_email')->pluck('company_email')->unique();
+            $company_type =  $datos->sortBy('company_type')->pluck('company_type')->unique();
+            $company_nif =  $datos->sortBy('company_nif')->pluck('company_nif')->unique();
+            $commercial_name =  $datos->sortBy('commercial_name')->pluck('commercial_name')->unique();
+            $contact_person =  $datos->sortBy('contact_person')->pluck('contact_person')->unique();
+            $company_phone =  $datos->sortBy('company_phone')->pluck('company_phone')->unique();
+            $company_population =  $datos->sortBy('company_population')->pluck('company_population')->unique();
+            $offer_type =  $datos->sortBy('offer_type')->pluck('offer_type')->unique();
+            $working_day_type =  $datos->sortBy('working_day_type')->pluck('working_day_type')->unique();
+            $offer_sector =  $datos->sortBy('offer_sector')->pluck('offer_sector')->unique();
+            $characteristics =  $datos->sortBy('characteristics')->pluck('characteristics')->unique();
+
+            return view('admin.logOffers', compact('id', 'company_email', 'company_type', 'company_nif', 'commercial_name', 'contact_person', 'company_phone', 'company_population', 'offer_type', 'working_day_type', 'offer_sector', 'characteristics'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function recover($id)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1) {
+
+            $data = Offer::where('offer_visiblity', 2)->where('offer_id', $id)->select('offer_state', 'offer_visiblity')->first();
+            $data->offer_state = "Recuperated";
+            $data->offer_visiblity = 0;
+            Offer::where('offer_visiblity', "2")->where('offer_id', $id)->update($data->toArray());
+            return redirect('admin/logOffers')->with('mensaje', 'recuperat'); #redirigir i enviar msg
+
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+    public function moreInfoOffer($idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $data = Offer::where("offer_id", $idOffer)->first();
+
+            return view('admin.moreInfoOffer', compact('data'));
         }
     }
 }

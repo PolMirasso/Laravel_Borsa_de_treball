@@ -15,29 +15,10 @@
         </div>
         @endif
 
-        <div class="form-group">
-
-            @if(count($errors)>0)
-
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach( $errors->all() as $error)
-                    <li> {{ $error }}</li>
-                    @endforeach
-                </ul>
-
-            </div>
-
-            @endif
+        @include('admin.moreInfoLayout')
 
 
-            {{ $data }}
 
-
-            <!--separar amb dos/tres columnes les dades de alumne / empresa/ oferta-->
-
-
-        </div>
         <a href="{{ url('admin/requestView/') }}" class='btn btn-danger'>Cancelar</a>
         <a href="{{ url('admin/downloadCV/'.$data->student_id ) }}" class='btn btn-warning'>Descarregar CV</a>
         <a href="{{ url('admin/downloadCV/'.$data->student_id) }}" class='btn btn-primary'>Enviar correu empresa</a>
