@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Mail;
+use \App\Mail\SendMail;
 
 class StudentController extends Controller
 {
@@ -32,7 +34,6 @@ class StudentController extends Controller
     {
         $offer = Offer::where('offer_id', $id)->where('offer_visiblity', "1")->firstOrFail();
 
-
         return view('student.contact', compact('offer'));
     }
 
@@ -54,6 +55,26 @@ class StudentController extends Controller
         $s_Request['visibility'] = "0";
 
         Student_Request::insert($s_Request); #guardar a la db 
+
+
+        $details = [
+            'subject' => 'Solicitud de ' . Auth::user()->username,
+            'title' => 'El alumne ' . Auth::user()->username . ' ha enviat una solicitud de empresa',
+            'body1' => 'El alumne' . Auth::user()->username . ', amb correu ' . Auth::user()->email . ' ha enviat una solicitud per a la empresa ',
+            'body2' => "La solicitud conte el seguent missatje :" . $request->text_contact,
+            'body3' => "",
+            'body4' => "",
+            'body5' => "",
+            'body6' => "",
+            'body7' => "",
+            'body8' => "",
+            'fileName' => "",
+            'fileRoute' => "",
+        ];
+
+
+        Mail::to(env('ADMIN_RECIVE_MAIL', ''))->send(new SendMail($details));
+
 
         return redirect('student')->with('mensaje', "S'ha enviat la proposta");
     }

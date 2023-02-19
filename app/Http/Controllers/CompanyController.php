@@ -47,8 +47,18 @@ class CompanyController extends Controller
         $details = [
             'subject' => 'Solicitud de ' . $request->commercial_name,
             'title' => 'La empresa ' . $request->commercial_name . ' solicita publicacio en borsa de treball publica',
-            'body' => 'La empresa ' . $request->commercial_name . ', amb correu ' . $request->company_email . ' ha enviat una publicacio en la borsa de treball</a>'
+            'body1' => 'La empresa ' . $request->commercial_name . ', amb correu ' . $request->company_email . ' ha enviat una publicacio en la borsa de treball',
+            'body2' => "",
+            'body3' => "",
+            'body4' => "",
+            'body5' => "",
+            'body6' => "",
+            'body7' => "",
+            'body8' => "",
+            'fileName' => "",
+            'fileRoute' => "",
         ];
+
 
         Mail::to(env('ADMIN_RECIVE_MAIL', ''))->send(new SendMail($details));
 

@@ -84,6 +84,7 @@ Route::get('/admin/requestView', [AdminController::class, 'requestView'])->name(
 Route::get('/admin/downloadCV/{id}', [AdminController::class, 'downloadCV'])->name('downloadCV')->middleware('auth');
 Route::get('/admin/requestVisibility/{idStudent}/{idOffer}', [AdminController::class, 'requestVisibility'])->name('requestVisibility')->middleware('auth');
 Route::get('/admin/moreInfo/{idStudent}/{idOffer}', [AdminController::class, 'moreInfo'])->name('moreInfo')->middleware('auth');
+Route::get('/admin/sendMailCompany/{idStudent}/{idOffer}', [AdminController::class, 'sendMailCompany'])->name('sendMailCompany')->middleware('auth');
 
 //manejar users students
 Route::get('/admin/getStudentData', [AdminController::class, 'getStudentData'])->name('getStudentData')->middleware('auth');
