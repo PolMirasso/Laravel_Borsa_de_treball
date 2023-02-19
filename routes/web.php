@@ -109,4 +109,7 @@ Route::resource('admin', AdminController::class)->middleware('auth');
 //manejar ofertes alumnes
 Route::get('/student/contact/{id}', [StudentController::class, 'contact'])->name('contact')->middleware('auth');
 Route::post('/student/saveContact/{id}', [StudentController::class, 'saveContact'])->name('saveContact')->middleware('auth');
+Route::post('/student/updateStudentData/{id}', [StudentController::class, 'updateStudentData'])->name('updateStudentData')->middleware('auth');
+Route::get('/student/updateStudentPage/{id}', [StudentController::class, 'updateStudentPage'])->name('updateStudentPage')->middleware('auth');
+
 Route::resource('student', StudentController::class)->middleware('auth');

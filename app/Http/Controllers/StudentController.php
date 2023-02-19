@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Mail;
 use \App\Mail\SendMail;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Support\Facades\Storage;
+
 
 class StudentController extends Controller
 {
@@ -77,5 +82,71 @@ class StudentController extends Controller
 
 
         return redirect('student')->with('mensaje', "S'ha enviat la proposta");
+    }
+
+    public function updateStudentPage(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->id == $id) {
+
+            $data = User::where('id', $id)->first();
+            return view('student.editStudent', compact('data'));
+        } else {
+            return redirect()->intended('/student');
+        }
+    }
+
+
+    public function updateStudentData(Request $request, $id)
+    {
+        $user = Auth::user();
+
+        if ($user->id == $id) {
+
+            $caps_validar = [
+                'username' => 'required|string|max:100',
+                'email' => 'required|email',
+                'course' => 'required|string|max:100',
+                'population' => 'required|string|max:100',
+                'cv_name' => 'nullable|mimes:pdf|max:10000',
+            ];
+
+
+            $mensaje_Error = [
+                'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+            ];
+
+            $this->validate($request, $caps_validar, $mensaje_Error);
+
+            $result = User::where('email', $request->email)->first();
+
+            if ($result) {
+                if ($result->email != $user->email) {
+                    return redirect('admin/studentView')->with('mensaje',  "El correu ja esta registrat");
+                }
+            }
+
+            if ($request->password != "") {
+                $data = Hash::make($request->password);
+                User::where('id', $id)->update(array('password' => $data));
+            }
+
+            $dades_usuari = request()->except('_token', '_method', 'password');
+
+            if ($request->hasFile('cv_name')) {
+
+                $uniqueFileName = (uniqid() . '-' . $request->username . '.pdf');
+                $dades_usuari['cv_name'] = $request->file('cv_name')->storeAs('uploads', $uniqueFileName, 'public');
+            } else {
+
+                $dades_usuari = request()->except('_token', '_method', 'password', 'cv_name');
+            }
+            User::where('id', $id)->update($dades_usuari);
+
+            return redirect('student')->with('mensaje', "El alumne s'ha modificat.");
+        } else {
+            return redirect()->intended('/student');
+        }
     }
 }
