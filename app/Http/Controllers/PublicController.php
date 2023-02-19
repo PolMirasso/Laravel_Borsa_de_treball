@@ -29,8 +29,9 @@ class PublicController extends Controller
             'password' => 'required|string|max:100',
             'course' => 'required|string|max:100',
             'population' => 'required|string|max:100',
-            'mobility' => 'required|string|max:100',
-            'cv_file' => 'required|mime:pdf|max:10000',
+            'mobility' => 'nullable|string|max:100',
+            'cv_name' => 'required|mimes:pdf|max:10000',
+
 
         ];
 
@@ -55,8 +56,8 @@ class PublicController extends Controller
 
 
 
-        if ($request->hasFile('cv_file')) {
-            $user->cv_name = $request->file('cv_file')->storeAs('uploads', $uniqueFileName, 'public');
+        if ($request->hasFile('cv_name')) {
+            $user->cv_name = $request->file('cv_name')->storeAs('uploads', $uniqueFileName, 'public');
         }
         $user->type_user = 0;
 

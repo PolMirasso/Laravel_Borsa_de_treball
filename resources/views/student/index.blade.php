@@ -28,6 +28,8 @@
 
         @endif
 
+        <a href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}" class='btn btn-warning'>modificar usr</a>
+
         <div class="table-responsive">
 
             <table id="ofertes" class="display" style="width:100%">
