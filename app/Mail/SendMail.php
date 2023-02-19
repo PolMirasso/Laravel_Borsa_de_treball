@@ -32,6 +32,20 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->details['subject'])->view('email.OfferRecived');
+        //   return $this->subject($this->details['subject'])->view('email.OfferRecived');
+
+        if ($this->details['fileName'] != "") {
+            $file = new \SplFileInfo($this->details['fileRoute']);
+
+            return $this->subject($this->details['subject'])
+                ->view('email.OfferRecived')
+                ->attach($file->getRealPath(), [
+                    'as' => $this->details['fileName'],
+                    'mime' => 'application/pdf'
+                ]);
+        } else {
+            return $this->subject($this->details['subject'])
+                ->view('email.OfferRecived');
+        }
     }
 }

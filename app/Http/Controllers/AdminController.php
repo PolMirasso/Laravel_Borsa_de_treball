@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Illuminate\Support\Facades\Mail;
+use \App\Mail\SendMail;
 
 class AdminController extends Controller
 {
@@ -570,6 +572,38 @@ class AdminController extends Controller
             $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->first();
 
             return view('admin.moreInfo', compact('data'));
+        }
+    }
+
+    public function sendMailCompany($idStudent, $idOffer)
+    {
+        $user = Auth::user();
+
+        if ($user->type_user == 1 || $user->type_user == 2) {
+
+            $data = Student_Request::with('student', 'offer')->where("student_id", $idStudent)->where("offer_id", $idOffer)->first();
+
+            $pathToFile = storage_path('app/public/' . $data->student->cv_name);
+            $filename = "CV_" . $data->student->username . ".pdf";
+
+            $details = [
+                'subject' => 'Borsa de treball |  La Salle Mollerussa',
+                'title' => 'Sol·licitud de ' . $data->offer_type . ' de ' . $data->student->username,
+                'body1' => "Benvolgut/uda " . $data->offer->contact_person . ",",
+                'body2' => "Li escric en nom de " . $user->username . " per informar-li que hem rebut una sol·licitud de " . $data->offer->offer_type . " de " . $data->student->username . " per la seva empresa.",
+                'body3' => "Com a part del procés de sol·licitud, " . $data->student->username . " ha proporcionat el seu currículum que pot trobar adjunt a aquest correu electrònic. A més a més, a través del nostre lloc web, hem verificat la seva experiència i habilitats relacionades amb el lloc de treball.",
+                'body4' => "Si està interessat/ada en procedir amb la sol·licitud de " . $data->offer->commercial_name . ", si us plau faci'ns-ho saber perquè puguem proporcionar-li més detalls i posar-lo en contacte amb el candidat.",
+                'body5' => "Gràcies pel seu temps i consideració.",
+                'body6' => "Atentament,",
+                'body7' => $user->username . ",",
+                'body8' => $user->email,
+                'fileName' => $filename,
+                'fileRoute' => $pathToFile,
+            ];
+
+            Mail::to($data->offer->company_email)->send(new SendMail($details));
+
+            return redirect('admin/requestView')->with('mensaje', "S'ha enviat la oferta a la empresa");
         }
     }
 
