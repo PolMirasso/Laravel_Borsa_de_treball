@@ -1,4 +1,4 @@
-<h1>registro admins</h1>
+<h1>Registre d'Admins</h1>
 
 @if(Session::has('mensaje'))
 

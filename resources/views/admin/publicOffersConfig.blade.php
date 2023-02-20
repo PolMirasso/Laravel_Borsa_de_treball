@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h1>logged admin</h1>
+    <h1>Ofertes Borsa</h1>
 
     @if(Session::has('mensaje'))
 
@@ -27,8 +27,6 @@
 
     @endif
     <div class="panel panel-default">
-
-        <h1>offertes publiques</h1>
 
         <div class="table-responsive">
 

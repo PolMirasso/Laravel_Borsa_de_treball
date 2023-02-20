@@ -4,12 +4,9 @@
 
 <div class="container">
 
-    <h1>logged admin</h1>
-
-
     <div class="panel panel-default">
 
-        <h1>admin users</h1>
+        <h1>Edició d'Usuaris Admin</h1>
 
         @if(Session::has('mensaje'))
 
