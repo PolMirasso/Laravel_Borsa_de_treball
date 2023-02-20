@@ -43,7 +43,7 @@ class PublicController extends Controller
 
 
         $user = new User();
-
+        
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password); //encriptar contra
@@ -54,7 +54,13 @@ class PublicController extends Controller
 
         $uniqueFileName = (uniqid() . '-' . $request->username . '.pdf');
 
+        $result = User::where('email', $request->email)->first();
 
+        if ($result) {
+            if ($result->email == $user->email) {
+                return redirect('/register')->with('mensaje',  "El correu ja esta registrat");
+            }
+        }
 
         if ($request->hasFile('cv_name')) {
             $user->cv_name = $request->file('cv_name')->storeAs('uploads', $uniqueFileName, 'public');
@@ -65,7 +71,7 @@ class PublicController extends Controller
 
         Auth::login($user); //guardar usuari a db
 
-        return redirect('student.index');
+        return redirect()->intended('/student');
     }
 
     public function login(Request $request)
