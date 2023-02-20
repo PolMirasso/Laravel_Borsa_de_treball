@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Borsa -->
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ url('admin') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Borsa de Treball</span></a>
             </li>
