@@ -17,14 +17,13 @@
 
                 <thead>
                     <tr>
-
                         <th>Tipus empresa</th>
                         <th>Nom empresa</th>
-                        <th>Poblacio empresa</th>
+                        <th>Població empresa</th>
                         <th>Tipus oferta</th>
                         <th>Jornada</th>
                         <th>Sector</th>
-                        <th>Accio</th>
+                        <th>Acció</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -38,7 +37,7 @@
                                 data-column="1">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="Poblacio empresa"
+                            <input type="text" class="form-control filter-input" placeholder="Població empresa"
                                 data-column="2">
                         </td>
                         <td>
@@ -78,7 +77,7 @@
                         </td>
                         <td>
                             <select data-column="2" class="form-control filter-select">
-                                <option value="">Poblacio empresa</option>
+                                <option value="">Població empresa</option>
                                 @foreach ($company_population as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
