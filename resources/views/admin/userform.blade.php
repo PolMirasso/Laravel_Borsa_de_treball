@@ -19,6 +19,7 @@
         value="{{ isset($data->course)?$data->course:old('course') }}" id="course">
 </div>
 
+
 <div class="mb-3">
     <label for="populationInput">population: </label>
     <input type="population" class="form-control" name="population"
