@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}">
-
 @extends('navbar')
 
 @section('content')
@@ -140,7 +138,6 @@
 
 <!-- Bootstrap core JavaScript-->
 <script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
 <!-- Core plugin JavaScript-->
 <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
@@ -188,7 +185,11 @@
                             <a href="#" class="btn btn-success btn-circle"> <i class="fas fa-check"></i> </a>
                             <a href="#" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
                             <a href="#" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
-                            <a href="#" class="btn btn-warning btn-circle"> <i class="fa fa-pencil-square-o"></i> </a>
+                            <a href="#" class="btn btn-warning btn-circle"> 
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+
+                                    </i>
+                            </a>
                             <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class='btn btn-success'>Acceptar</a>
                                 <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar</a> 
                                 <a href="{{ url('admin/deny/${data}') }}" onclick="return confirm('Segu que vols eliminar la oferta')" class='btn btn-danger'>Eliminar</a> 
