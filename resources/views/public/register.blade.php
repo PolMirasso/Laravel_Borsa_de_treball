@@ -1,69 +1,120 @@
-<h1>registro</h1>
-@if(Session::has('mensaje'))
+<head>
 
-<div class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    {{ Session::get('mensaje') }}
-</div>
-@endif
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-@if(count($errors)>0)
+    <title>SB Admin 2 - Register</title>
 
-<div class="alert alert-danger">
-    <ul>
-        @foreach( $errors->all() as $error)
-        <li> {{ $error }}</li>
-        @endforeach
-    </ul>
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-</div>
+    <!-- Custom styles for this template-->
 
-@endif
+    <link rel="stylesheet" href="{{asset('css/sb-admin-2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
 
-<body>
-    <main class="container align-center p-5">
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
         <form method="post" action="{{ route('validar-registro') }}" enctype="multipart/form-data">
             @csrf
-            <div class="mb-3">
-                <label for="usernameInput" class="form-label">username</label>
-                <input type="username" class="form-control" name="username" id="usernameInput" required
-                    autocomplete="disable">
-            </div>
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                        <div class="col-lg-7">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Registrar!</h1>
+                                </div>
+                                <form class="user">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="usernameInput" class="form-label">Nom i Cognoms</label>
+                                            <input type="username" class="form-control" name="username" id="usernameInput" required autocomplete="disable">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="emailInput" class="form-label">Correu</label>
+                                            <input type="email" class="form-control" name="email" id="emailInput" required autocomplete="disable">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="passwordInput" class="form-label">Contrasenya</label>
+                                        <input type="password" class="form-control" name="password" id="passwordInput" required>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="courseInput" class="form-label">Curs</label>
+                                            <input type="course" class="form-control" name="course" id="courseInput" required autocomplete="disable">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="populationInput" class="form-label">Població</label>
+                                            <input type="population" class="form-control" name="population" id="populationInput" required autocomplete="disable">
+                                        </div>
+                                        <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFileLang" lang="es">
+  <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+</div>
+                                        <div class="custom-file mt-5 mb-5">
+                                            <label for="cv_name" class="control-label">Insertar CV: </label>
+                                            <input class="form-control" type="file" name="cv_name" id="cv_name">
+                                        </div>
+                                    </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" name="mobility" id="mobilityInput" class="form-check-input">
+                                <label for="mobilityInput" class="form-check-label">Mobilitat</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-3">Registrarse</button>
 
-            <div class="mb-3">
-                <label for="emailInput" class="form-label">email</label>
-                <input type="email" class="form-control" name="email" id="emailInput" required autocomplete="disable">
-            </div>
+                            @if(Session::has('mensaje'))
 
-            <div class="mb-3">
-                <label for="passwordInput" class="form-label">password</label>
-                <input type="password" class="form-control" name="password" id="passwordInput" required>
-            </div>
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                {{ Session::get('mensaje') }}
+                            </div>
+                            @endif
 
-            <div class="mb-3">
-                <label for="courseInput" class="form-label">course</label>
-                <input type="course" class="form-control" name="course" id="courseInput" required
-                    autocomplete="disable">
-            </div>
+                            @if(count($errors)>0)
 
-            <div class="mb-3">
-                <label for="populationInput" class="form-label">population</label>
-                <input type="population" class="form-control" name="population" id="populationInput" required
-                    autocomplete="disable">
-            </div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach( $errors->all() as $error)
+                                    <li> {{ $error }}</li>
+                                    @endforeach
+                                </ul>
 
-            <div class="mb-3 form-check">
-                <input type="checkbox" name="mobility" id="mobilityInput" class="form-check-input">
-                <label for="mobilityInput" class="form-check-label">mobility</label>
-            </div>
+                            </div>
 
-            <div class="form-group">
-                <label for="cv_name" class="control-label">Insertar CV: </label>
-                <input class="form-control" type="file" name="cv_name" id="cv_name">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-
+                            @endif
         </form>
-    </main>
+        <div class="text-center">
+            <a class="small" href="{{ url('../../login') }}">Tens una compta ja? Entra!</a>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
 </body>
+
+</html>
