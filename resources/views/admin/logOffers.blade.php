@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h1>logged admin</h1>
+    <h1>Historial d'Ofertes</h1>
 
     @if(Session::has('mensaje'))
 

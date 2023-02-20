@@ -1,5 +1,9 @@
-<h1>change password</h1>
 
+@extends('navbar')
+
+@section('content')
+
+<h1>Canviar Contrassenya</h1>
 @if(Session::has('mensaje'))
 
 <div class="alert alert-success alert-dismissable">
@@ -34,3 +38,4 @@
         </form>
     </main>
 </body>
+@endsection
