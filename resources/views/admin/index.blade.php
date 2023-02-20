@@ -2,13 +2,13 @@
 
 @section('content')
 
-<h1 class="h3 mb-2 text-gray-800">Llista empreses no acceptades</h1>
+<h1 class="h3 mb-2 text-gray-800">Llista peticions pendents</h1>
 
-<p class="mb-4"></a>Llista empreses no acceptades.</p>
+<p class="mb-4"></a>Llista de les peticions pendents de ser publicades.</p>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Peticions Pendents</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -18,34 +18,38 @@
                 <thead>
                     <tr>
 
-                        <th>company_type</th>
-                        <th>commercial_name</th>
-                        <th>company_population</th>
-                        <th>offer_type</th>
-                        <th>working_day_type</th>
-                        <th>offer_sector</th>
+                        <th>Tipus empresa</th>
+                        <th>Nom empresa</th>
+                        <th>Poblacio empresa</th>
+                        <th>Tipus oferta</th>
+                        <th>Jornada</th>
+                        <th>Sector</th>
                         <th>Accio</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 1" data-column="0">
+                            <input type="text" class="form-control filter-input" placeholder="Tipus empresa"
+                                data-column="0">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 2" data-column="1">
+                            <input type="text" class="form-control filter-input" placeholder="Nom empresa"
+                                data-column="1">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 3" data-column="2">
+                            <input type="text" class="form-control filter-input" placeholder="Poblacio empresa"
+                                data-column="2">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 4" data-column="3">
+                            <input type="text" class="form-control filter-input" placeholder="Tipus oferta"
+                                data-column="3">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 5" data-column="4">
+                            <input type="text" class="form-control filter-input" placeholder="Jornada" data-column="4">
                         </td>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 6" data-column="5">
+                            <input type="text" class="form-control filter-input" placeholder="Sector" data-column="5">
                         </td>
 
                         <td></td>
@@ -56,16 +60,7 @@
 
                         <td>
                             <select data-column="0" class="form-control filter-select">
-                                <option value="">tria opcio</option>
-                                @foreach ($company_email as $type)
-                                <option value="{{ $type }}"> {{ $type }}</option>
-                                @endforeach
-                            </select>
-
-                        </td>
-                        <td>
-                            <select data-column="1" class="form-control filter-select">
-                                <option value="">tria opcio</option>
+                                <option value="">Tipus empresa</option>
                                 @foreach ($company_type as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
@@ -73,9 +68,18 @@
 
                         </td>
                         <td>
+                            <select data-column="1" class="form-control filter-select">
+                                <option value="">Nom empresa</option>
+                                @foreach ($commercial_name as $type)
+                                <option value="{{ $type }}"> {{ $type }}</option>
+                                @endforeach
+                            </select>
+
+                        </td>
+                        <td>
                             <select data-column="2" class="form-control filter-select">
-                                <option value="">tria opcio</option>
-                                @foreach ($company_nif as $type)
+                                <option value="">Poblacio empresa</option>
+                                @foreach ($company_population as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
                             </select>
@@ -84,8 +88,8 @@
 
                         <td>
                             <select data-column="3" class="form-control filter-select">
-                                <option value="">tria opcio 2</option>
-                                @foreach ($commercial_name as $population)
+                                <option value="">Tipus oferta</option>
+                                @foreach ($offer_type as $population)
                                 <option value="{{ $population }}"> {{ $population }}
                                 </option>
                                 @endforeach
@@ -95,8 +99,8 @@
 
                         <td>
                             <select data-column="4" class="form-control filter-select">
-                                <option value="">tria opcio 2</option>
-                                @foreach ($contact_person as $population)
+                                <option value="">Jornada</option>
+                                @foreach ($working_day_type as $population)
                                 <option value="{{ $population }}"> {{ $population }}
                                 </option>
                                 @endforeach
@@ -106,8 +110,8 @@
 
                         <td>
                             <select data-column="5" class="form-control filter-select">
-                                <option value="">tria opcio 2</option>
-                                @foreach ($company_phone as $population)
+                                <option value="">Sector</option>
+                                @foreach ($offer_sector as $population)
                                 <option value="{{ $population }}"> {{ $population }}
                                 </option>
                                 @endforeach
@@ -181,20 +185,12 @@
 
                         if ("{{ Auth:: user()-> type_user }}" == 1) {
                             return `
-                            <a href="#" class="btn btn-success btn-circle"> <i class="fas fa-check"></i> </a>
-                            <a href="#" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
-                            <a href="#" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
-                            <a href="#" class="btn btn-warning btn-circle"> 
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class="btn btn-success btn-circle"> <i class="fas fa-check"></i> </a>
+                            <a href="{{ url('admin/edit/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
+                            <a href="{{ url('admin/moreInfoCompanyOffer/${data}') }}" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
+                            <a href="{{ url('admin/deny/${data}') }}" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
 
-                                    </i>
-                            </a>
-                            <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class='btn btn-success'>Acceptar</a>
-                                <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar</a> 
-                                <a href="{{ url('admin/deny/${data}') }}" onclick="return confirm('Segu que vols eliminar la oferta')" class='btn btn-danger'>Eliminar</a> 
-                                <a href="{{ url('admin/moreInfoCompanyOffer/${data}') }}" class='btn btn-secondary'>Mes informacio</a> 
-
-                                    `;
+                            `;
                         } else {
                             return `<p>No disponible</p>`;
                         }
