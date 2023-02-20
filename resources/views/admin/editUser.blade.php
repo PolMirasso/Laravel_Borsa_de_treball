@@ -6,7 +6,7 @@
 
 <div class="container">
     <div class="panel panel-default">
-        <h1>edit admins</h1>
+        <h1>Editar Usuaris Admin</h1>
 
         @if(Session::has('mensaje'))
 

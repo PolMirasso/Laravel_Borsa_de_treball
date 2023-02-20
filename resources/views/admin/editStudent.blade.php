@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="panel panel-default">
-        <h1>edit student</h1>
+        <h1>Editar Estudiant</h1>
         @if(Session::has('mensaje'))
 
         <div class="alert alert-success alert-dismissable">
