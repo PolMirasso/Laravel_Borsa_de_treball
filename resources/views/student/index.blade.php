@@ -2,37 +2,22 @@
 
 @section('content')
 
-<div class="container">
-    <div class="panel panel-default">
+<h1 class="h3 mb-2 text-gray-800">Llista peticions pendents</h1>
 
-        <h1>ofertes</h1>
+<p class="mb-4"></a>Llista de les peticions pendents de ser publicades.</p>
 
-        @if(Session::has('mensaje'))
-
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('mensaje') }}
-        </div>
-        @endif
-
-        @if(count($errors)>0)
-
-        <div class="alert alert-danger">
-            <ul>
-                @foreach( $errors->all() as $error)
-                <li> {{ $error }}</li>
-                @endforeach
-            </ul>
-
-        </div>
-
-        @endif
-
-        <a href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}" class='btn btn-warning'>modificar usr</a>
-
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Peticions Pendents</h6>
+    </div>
+    <div class="card-body">
         <div class="table-responsive">
 
-            <table id="ofertes" class="display" style="width:100%">
+            <a href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}" class='btn btn-warning'>modificar usr</a>
+
+
+            <table class="table table-bordered" id="ofertes" width="100%" cellspacing="0">
+
                 <thead>
                     <tr>
                         <th>company_type</th>
@@ -150,14 +135,21 @@
 
 @section('javascript')
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js">
-</script>
+<!-- Bootstrap core JavaScript-->
+<script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
 
-</script>
+<!-- Core plugin JavaScript-->
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
+<!-- Custom scripts for all pages-->
 
+<!-- Page level plugins -->
+<script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
 
 <script>
