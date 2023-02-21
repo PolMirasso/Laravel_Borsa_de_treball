@@ -23,6 +23,7 @@
                         <th>Tipus oferta</th>
                         <th>Jornada</th>
                         <th>Sector</th>
+                        <th>Data publicació</th>
                         <th>Acció</th>
                     </tr>
                 </thead>
@@ -51,6 +52,7 @@
                             <input type="text" class="form-control filter-input" placeholder="Sector" data-column="5">
                         </td>
 
+                        <td></td>
                         <td></td>
                     </tr>
 
@@ -117,7 +119,7 @@
 
                         </td>
 
-
+                        <td></td>
 
                         <td></td>
 
@@ -174,8 +176,9 @@
                 { "targets": 3, "data": 'offer_type' },
                 { "targets": 4, "data": 'working_day_type' },
                 { "targets": 5, "data": 'offer_sector' },
+                { "targets": 6, "data": 'updated_at' },
                 {
-                    "targets": 6,
+                    "targets": 7,
                     "data": 'id',
                     orderable: false,
                     "render": function (data, type, row, meta) {
