@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Borsa Treball</title>
+    <title>Formulari Borsa Treball</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" type="text/css">
@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{asset('css/sb-admin-2.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}">
 </head>
+
+
 
 
 <div class="container">
@@ -35,78 +37,224 @@
     </div>
 
     @endif
-
-    <form action="{{ url('/company') }}" method="post">
-
-        @csrf
-        <div class="col-sm-12">
-            <label for="company_email">Email: </label>
-            <input type="text" class="form-control" name="company_email"
-                value="{{ isset($offer->company_email)?$offer->company_email:old('company_email') }}" id="company_email">
-            <!--Desplegable-->
-            <label for="company_type">Tipus D'Empresa: </label>
-            <input type="text" class="form-control" name="company_type"
-                value="{{ isset($offer->company_type)?$offer->company_type:old('company_type') }}" id="company_type">
-
-            <label for="company_nif">NIF: </label>
-            <input type="text" class="form-control" name="company_nif"
-                value="{{ isset($offer->company_nif)?$offer->company_nif:old('company_nif') }}" id="company_nif">
-
-            <label for="commercial_name">Nom Empresa: </label>
-            <input type="text" class="form-control" name="commercial_name"
-                value="{{ isset($offer->commercial_name)?$offer->commercial_name:old('commercial_name') }}"
-                id="commercial_name">
-
-            <label for="contact_person">Persona de contacte: </label>
-            <input type="text" class="form-control" name="contact_person"
-                value="{{ isset($offer->contact_person)?$offer->contact_person:old('contact_person') }}"
-                id="contact_person">
-
-            <label for="company_phone">Telefon: </label>
-            <input type="text" class="form-control" name="company_phone"
-                value="{{ isset($offer->company_phone)?$offer->company_phone:old('company_phone') }}" id="company_phone">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Formulari Empreses</h6>
         </div>
-        <div class="col-sm-12">
-            <label for="company_population">Poblacio: </label>
-            <input type="text" class="form-control" name="company_population"
-                value="{{ isset($offer->company_population)?$offer->company_population:old('company_population') }}"
-                id="company_population">
-
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Tipus d'oferta
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Jornada Sencera</a></li>
-                    <li><a class="dropdown-item" href="#">Mitja Jornada</a></li>
-                    <li><a class="dropdown-item" href="#">Indiferent</a></li>
-                    </ul>
+        <div class="card-body">
+            <form action="{{ url('/company') }}" method="post">
+                @csrf
+                <div class="mb-3">
+                    <label for="company_email" class="form-label">Correu electronic: </label>
+                    <input type="email" class="form-control" name="company_email"
+                        value="{{ isset($offer->company_email)?$offer->company_email:old('company_email') }}"
+                        id="company_email">
+                </div>
+                <div class="mb-3">
+                    <label for="contact_person">Persona de contacte: </label>
+                    <input type="text" class="form-control" name="contact_person"
+                        value="{{ isset($offer->contact_person)?$offer->contact_person:old('contact_person') }}"
+                        id="contact_person">
+                </div>
+                {{-- RADIOBUTTON --}}
+                <div class="mb-3">
+                    <label for="company_type">Tipus D'Empresa: </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="company_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Empresa de Treball Temporal
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="company_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Empresa de Selecció de Personal
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="company_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            ALTRES
+                        </label>
+                    </div>
                 </div>
 
-            <label for="offer_type">Tipus d'oferta: </label>
-            <input type="text" class="form-control" name="offer_type"
-                value="{{ isset($offer->offer_type)?$offer->offer_type:old('offer_type') }}" id="offer_type">
+                <div class="mb-3">
+                    </li><label for="company_nif">NIF: </label>
+                    <input type="text" class="form-control" name="company_nif"
+                        value="{{ isset($offer->company_nif)?$offer->company_nif:old('company_nif') }}"
+                        id="company_nif">
+                </div>
 
-            <label for="working_day_type">working_day_type: </label>
-            <input type="text" class="form-control" name="working_day_type"
-                value="{{ isset($offer->working_day_type)?$offer->working_day_type:old('working_day_type') }}"
-                id="working_day_type">
+                <div class="mb-3">
+                    <label for="commercial_name">Nom Comercial: </label>
+                    <input type="text" class="form-control" name="commercial_name"
+                        value="{{ isset($offer->commercial_name)?$offer->commercial_name:old('commercial_name') }}"
+                        id="commercial_name">
+                </div>
 
-            <label for="offer_sector">offer_sector: </label>
-            <input type="text" class="form-control" name="offer_sector"
-                value="{{ isset($offer->offer_sector)?$offer->offer_sector:old('offer_sector') }}" id="offer_sector">
+                <div class="mb-3">
+                    <label for="contact_person">Persona de contacte: </label>
+                    <input type="text" class="form-control" name="contact_person"
+                        value="{{ isset($offer->contact_person)?$offer->contact_person:old('contact_person') }}"
+                        id="contact_person">
+                </div>
 
-            <label for="characteristics">characteristics: </label>
-            <input type="textarea" class="form-control" name="characteristics"
-                value="{{ isset($offer->characteristics)?$offer->characteristics:old('characteristics') }}"
-                id="characteristics">
+                <div class="mb-3">
+                    <label for="company_phone">Telefon: </label>
+                    <input type="text" class="form-control" name="company_phone"
+                        value="{{ isset($offer->company_phone)?$offer->company_phone:old('company_phone') }}"
+                        id="company_phone">
+                </div>
 
+                <div class="mb-3">
+                    <label for="company_population">Poblacio: </label>
+                    <input type="text" class="form-control" name="company_population"
+                        value="{{ isset($offer->company_population)?$offer->company_population:old('company_population') }}"
+                        id="company_population">
+                </div>
+
+                <div class="mb-3">
+                    <label for="offer_type">Tipus d'oferta: </label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="offer_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Pràctiques
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="offer_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Pràctiques amb opció de treball
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="offer_type"
+                            value="option1">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Treball
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="working_day_type" class="form-label">Si es Oferta de Treball: </label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="working_day_type" id="working_day_type"
+                            value="option1">
+                        <label class="form-check-label" for="working_day_type">
+                            Jornada Sencera
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="working_day_type" id="working_day_type"
+                            value="option1">
+                        <label class="form-check-label" for="working_day_type">
+                            Mitja Jornada Matí
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="working_day_type" id="working_day_type"
+                            value="option1">
+                        <label class="form-check-label" for="working_day_type">
+                            Mitja Jornada Tarda
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="working_day_type" id="working_day_type"
+                            value="option1">
+                        <label class="form-check-label" for="working_day_type">
+                            Indiferent
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="offer_sector">Sector: </label>
+                    <div class="mb-3">
+                        <select class="form-control" id="offer_sector" aria-label="Default select example" ">
+                                <option value=" 0">Adminitració</option>
+                            <option value="1">Comerç Internacional</option>
+                            <option value="2">Màrqueting i publicitat</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="characteristics">Caracteristiques: </label>
+                    <textarea class="form-control" id="characteristics" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Accepto l'emmagatzematge i tractament de
+                        dades</label>
+                </div>
+
+                <div class="my-2"></div>
+                    <a type="submit" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#logoutModal">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-check"></i>
+                        </span>
+                        <span class="text">Enviar</span>
+                    </a>
+
+                <div class="my-2"></div>
+                <a  href="{{ url('/') }}" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </a>
         </div>
-        <br>
+        
         <input type="submit" class="btn btn-success" value="Insertar dades">
 
         <a href="{{ url('/') }}" class="btn btn-danger">Cancelar</a>
 
-    </form>
-
+        </form>
+    </div>
 </div>
+</div>
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Segur que vols enviar el Formulari?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">Selecciona "Enviar" si estas llest per enviar el formulari.</div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+            <a class="btn btn-primary" href="{{ route('logout') }}">Enviar</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+
+<!-- Custom scripts for all pages-->
+
+<!-- Page level plugins -->
+<script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
