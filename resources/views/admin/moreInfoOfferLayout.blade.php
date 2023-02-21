@@ -1,4 +1,4 @@
-@if($modo == "infoPublic")
+@if($modo == "infoPublic" || $modo == "logOfertes")
 <div class="col-lg-6">
 
     <div class="card shadow mb-4">
@@ -57,6 +57,7 @@
 
             <div class="col-lg-12">
 
+                @if($modo == "infoPublic")
                 <a href="{{ url('admin/accept/${data}') }}" class="btn btn-success btn-icon-split"
                     onclick="return confirm(`Segur que vols acceptar l'oferta?`)">
                     <span class="icon text-white-50">
@@ -88,7 +89,37 @@
                     </span>
                     <span class="text">Cancelar</span>
                 </a>
+                @endif
+
+
+                @if($modo == "logOfertes")
+
+                <a href="{{ url('admin/recover/${data}') }}" class="btn btn-success btn-icon-split"
+                    onclick="return confirm(`Segur que vols recuperar l'oferta?`)">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash-restore"></i>
+                    </span>
+                    <span class="text">Recuperar</span>
+                </a>
+
+
+                <a href="{{ url('admin/edit/${data}') }}" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fas fa-pencil-alt"></i>
+                    </span>
+                    <span class="text">Modificar</span>
+                </a>
+
+                <a href="{{ url('admin/logOffers') }}" class="btn btn-secondary btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </a>
+                @endif
             </div>
+
+
         </div>
     </div>
 
@@ -97,7 +128,7 @@
 
 @endif
 
-@if($modo == "infoOfertaAlumne")
+@if($modo == "infoOfertaAlumne" || $modo == "infoOfertaAlumnePrivate")
 
 <div class="col-lg-4">
 
@@ -108,22 +139,22 @@
         <div class="card-body">
             <ul class="list-group list-group-light">
 
-                <li class="list-group-item border-0"><strong class="text-info">username:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Nom complert:</strong> {{
                     $data->student->username }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">email:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Correu:</strong> {{
                     $data->student->email }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">course:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Curs:</strong> {{
                     $data->student->course }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">population::</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Població:</strong> {{
                     $data->student->population }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">mobility:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Mobilitat:</strong> {{
                     $data->student->mobility }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">created_at:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Data creacio conta:</strong> {{
                     $data->student->created_at }}
                 </li>
 
@@ -143,10 +174,10 @@
 
             <ul class="list-group list-group-light">
 
-                <li class="list-group-item border-0"><strong class="text-info">msg_user:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Missatje alumne:</strong> {{
                     $data->msg_user }}
                 </li>
-                <li class="list-group-item border-0"><strong class="text-info">created_at:</strong> {{
+                <li class="list-group-item border-0"><strong class="text-info">Data petició alumne:</strong> {{
                     $data->created_at }}
                 </li>
 
@@ -219,15 +250,58 @@
 
         <div class="card-body">
 
+            @if($modo == "infoOfertaAlumne")
+            <a href="{{ url('admin/downloadCV/'.$data->student_id ) }}" class="btn btn-info btn-icon-split"
+                onclick="return confirm(`Segur que vols acceptar l'oferta?`)">
+                <span class="icon text-white-50">
+                    <i class="fa fa-file"></i>
+                </span>
+                <span class="text">Descarregar CV</span>
+            </a>
 
-            <a href="{{ url('admin/requestView/') }}" class='btn btn-danger'>Cancelar</a>
-            <a href="{{ url('admin/downloadCV/'.$data->student_id ) }}" class='btn btn-warning'>Descarregar CV</a>
-            <a href="{{ url('admin/downloadCV/'.$data->student_id) }}" class='btn btn-primary'>Enviar correu
-                empresa</a>
+
+            <a href="{{ url('admin/sendMailCompany/${data}/${row.offer_id}') }}" class="btn btn-warning btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fa fa-envelope"></i>
+                </span>
+                <span class="text">Enviar correu empresa</span>
+            </a>
+
+
             <a href="{{ url('admin/requestVisibility/'.$data->student_id .'/'.$data->offer_id) }}"
-                onclick="return confirm('Segu que vols eliminar la peticio ')" class='btn btn-danger'>Eliminar</a>
+                class="btn btn-danger btn-icon-split" onclick="return confirm(`Segur que vols denegar la petició?`)">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash"></i>
+                </span>
+                <span class="text">Denegar</span>
+            </a>
 
+            <a href="{{ url('admin/requestView') }}" class="btn btn-secondary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+                <span class="text">Cancelar</span>
+            </a>
+            @endif
 
+            @if($modo == "infoOfertaAlumnePrivate")
+
+            <a href="{{ url('admin/requestRestoreVisibility/${data}/${row.offer_id}') }}"
+                class="btn btn-success btn-icon-split" onclick="return confirm(`Segur que vols recuperar la peticio?`)">
+                <span class="icon text-white-50">
+                    <i class="fas fa-trash-restore"></i>
+                </span>
+                <span class="text">Recuperar</span>
+            </a>
+
+            <a href="{{ url('admin/logRequests') }}" class="btn btn-secondary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+                <span class="text">Cancelar</span>
+            </a>
+
+            @endif
         </div>
     </div>
 </div>

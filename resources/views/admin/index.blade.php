@@ -188,7 +188,6 @@
                             <a href="{{ url('admin/edit/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
                             <a href="{{ url('admin/moreInfoCompanyOffer/${data}') }}" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
                             <a href="{{ url('admin/deny/${data}') }}" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
-
                             `;
                         } else {
                             return `<p>No disponible</p>`;
