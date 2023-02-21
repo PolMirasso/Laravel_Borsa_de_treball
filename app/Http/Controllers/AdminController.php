@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Illuminate\Support\Facades\Mail;
 use \App\Mail\SendMail;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -231,8 +232,22 @@ class AdminController extends Controller
                 'offer_type',
                 'working_day_type',
                 'offer_sector',
-                'characteristics'
+                'characteristics',
+                'updated_at'
             )->get();
+
+            foreach ($data as $offer) {
+                $offer->updated_at = Carbon::parse($offer->updated_at)->format('d-m-Y H:i:s');
+            }
+
+            $data->map(function ($item) {
+
+                $item->updated_at = Carbon::parse($item->updated_at)->tz('Asia/Kolkata')->format('d-m-Y H:i:s');
+
+                return $item;
+            });
+
+
 
             return compact('data');
         } else {

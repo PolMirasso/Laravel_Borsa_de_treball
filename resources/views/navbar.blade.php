@@ -43,6 +43,8 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            @if(Auth::user()->type_user == 1 || Auth::user()->type_user == 2)
+
             <!-- Nav Item - Borsa -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('admin') }}">
@@ -126,6 +128,17 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            @endif
+
+            @if(Auth::user()->type_user == 0)
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('student') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Borsa de Treball</span></a>
+            </li>
+
+            @endif
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
