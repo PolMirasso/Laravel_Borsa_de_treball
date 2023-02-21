@@ -33,8 +33,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <i class='far fa-star' style='font-size:15px'></i>
+
                 </div>
                 <div class="sidebar-brand-text mx-3">Borsa<sup>La salle</sup></div>
             </a>
@@ -66,7 +67,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-            
+
             <!-- Heading -->
             <div class="sidebar-heading">
                 Request
@@ -78,7 +79,7 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>InfoRequest</span></a>
             </li>
-            
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -97,10 +98,10 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        
+
                         <a class="collapse-item" href="{{ route('studentView') }}">Estudiants</a>
                         <a class="collapse-item" href="{{ route('usersView') }}">Admins</a>
-                        
+
                     </div>
                 </div>
             </li>
@@ -109,16 +110,15 @@
             <hr class="sidebar-divider">
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item ">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Log's</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('logOffers') }}">LogOfers</a>
-                        <a class="collapse-item" href="{{ route('logRequests') }}">LogRequest</a> 
+                        <a class="collapse-item" href="{{ route('logRequests') }}">LogRequest</a>
                     </div>
                 </div>
             </li>
@@ -156,8 +156,9 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username }}</span>
-                               
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username
+                                    }}</span>
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -175,7 +176,8 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Tancar Sessio
                                 </a>
@@ -196,18 +198,18 @@
                         {{ Session::get('mensaje') }}
                     </div>
                     @endif
-                
+
                     @if(count($errors)>0)
-                
+
                     <div class="alert alert-danger">
                         <ul>
                             @foreach( $errors->all() as $error)
                             <li> {{ $error }}</li>
                             @endforeach
                         </ul>
-                
+
                     </div>
-                
+
                     @endif
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"></h1>
@@ -251,7 +253,8 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Selecciona "Tancar Sessio" si estas llest per tancar la teva sessio actual.</div>
+                    <div class="modal-body">Selecciona "Tancar Sessio" si estas llest per tancar la teva sessio actual.
+                    </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
                         <a class="btn btn-primary" href="{{ route('logout') }}">Tancar Sessio</a>
