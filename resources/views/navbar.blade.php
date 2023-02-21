@@ -45,15 +45,7 @@
 
             @if(Auth::user()->type_user == 1 || Auth::user()->type_user == 2)
 
-            <!-- Nav Item - Borsa -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('admin') }}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Borsa de Treball</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+            <br>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -62,9 +54,17 @@
 
             <!-- Nav Item - Borsa -->
             <li class="nav-item">
+                <a class="nav-link" href="{{ url('admin') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Ofertes pendents</span></a>
+            </li>
+
+
+            <!-- Nav Item - Borsa -->
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('ManajePublicOffers') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>InfoOfers</span></a>
+                    <span>Ofertes públiques</span></a>
             </li>
 
             <!-- Divider -->
@@ -72,14 +72,14 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Request
+                Peticions alumnes
             </div>
 
             <!-- Nav Item - Borsa -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('requestView') }}">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>InfoRequest</span></a>
+                    <span>Peticions alumnes</span></a>
             </li>
 
             <!-- Divider -->
@@ -115,12 +115,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Log's</span>
+                    <span>Registres</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('logOffers') }}">LogOfers</a>
-                        <a class="collapse-item" href="{{ route('logRequests') }}">LogRequest</a>
+                        <a class="collapse-item" href="{{ route('logOffers') }}">Registres d'ofertes</a>
+                        <a class="collapse-item" href="{{ route('logRequests') }}">Registres de peticions</a>
                     </div>
                 </div>
             </li>
@@ -136,6 +136,39 @@
                 <a class="nav-link" href="{{ url('student') }}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Borsa de Treball</span></a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Usuari
+            </div>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fa fa-user"></i>
+                    <span>{{ Auth::user()->username }}</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}">
+                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Configurar
+                        </a>
+
+
+                        <a class="collapse-item" href="{{ route('logout') }}" data-toggle="modal"
+                            data-target="#logoutModal">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Tancar Sessió
+                        </a>
+                    </div>
+                </div>
             </li>
 
             @endif
@@ -163,6 +196,7 @@
                     </button>
 
                     <!-- Topbar Navbar -->
+                    @if(Auth::user()->type_user == 1 || Auth::user()->type_user == 2)
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - User Information -->
@@ -176,28 +210,22 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal"
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Tancar Sessio
+                                    Tancar Sessió
                                 </a>
                             </div>
                         </li>
-
                     </ul>
+
+                    @endif
+                    @if(Auth::user()->type_user == 0)
+
+                    @yield('topbar')
+
+                    @endif
+
 
                 </nav>
                 <!-- End of Topbar -->
@@ -266,11 +294,11 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Selecciona "Tancar Sessio" si estas llest per tancar la teva sessio actual.
+                    <div class="modal-body">Selecciona "Tancar Sessió" per tancar la teva sessió actual.
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="{{ route('logout') }}">Tancar Sessio</a>
+                        <a class="btn btn-primary" href="{{ route('logout') }}">Tancar Sessió</a>
                     </div>
                 </div>
             </div>
