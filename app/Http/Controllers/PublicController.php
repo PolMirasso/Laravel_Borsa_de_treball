@@ -43,7 +43,7 @@ class PublicController extends Controller
 
 
         $user = new User();
-        
+
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password); //encriptar contra
@@ -129,8 +129,17 @@ class PublicController extends Controller
             'working_day_type',
             'offer_sector',
             'characteristics',
-            'created_at'
+            'updated_at'
         )->get();
+
+        $data->map(function ($item) {
+
+            $date = date_create($item->updated_at);
+            $item->updated_at_format = date_format($date, "d/m/Y H:i:s");
+
+            return $item;
+        });
+
 
         return compact('data');
     }

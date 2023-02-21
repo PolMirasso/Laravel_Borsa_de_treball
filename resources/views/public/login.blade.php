@@ -9,11 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Borsa de Treball - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
 
@@ -44,13 +46,17 @@
                                         <form class="user">
                                             <div class="form-group">
                                                 <label for="emailInput" class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email" id="emailInput" required autocomplete="disable">
+                                                <input type="email" class="form-control" name="email" id="emailInput"
+                                                    required autocomplete="disable">
                                             </div>
                                             <label for="passwordInput" class="form-label">Password</label>
-                                            <input type="password" class="form-control" name="password" id="passwordInput" required>
+                                            <input type="password" class="form-control" name="password"
+                                                id="passwordInput" required>
                                             <div class="custom-control custom-checkbox small mt-1">
-                                                <input type="checkbox" name="remember" id="rememberCheck" class="form-check-input">
-                                                <label for="rememberCheck" class="form-check-label">Mantindre sessio iniciada</label>
+                                                <input type="checkbox" name="remember" id="rememberCheck"
+                                                    class="form-check-input">
+                                                <label for="rememberCheck" class="form-check-label">Mantindre sessio
+                                                    iniciada</label>
                                             </div>
                                             <button type="submit" class="btn btn-primary mt-1">Iniciar sessio</button>
                                             <div class="text-center mt-1">

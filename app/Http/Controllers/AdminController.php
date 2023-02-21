@@ -220,6 +220,7 @@ class AdminController extends Controller
         $user = Auth::user();
 
         if ($user->type_user == 1 || $user->type_user == 2) {
+
             $data = Offer::where('offer_visiblity', "1")->select(
                 'offer_id as id',
                 'company_email',
@@ -236,17 +237,14 @@ class AdminController extends Controller
                 'updated_at'
             )->get();
 
-            foreach ($data as $offer) {
-                $offer->updated_at = Carbon::parse($offer->updated_at)->format('d-m-Y H:i:s');
-            }
 
             $data->map(function ($item) {
 
-                $item->updated_at = Carbon::parse($item->updated_at)->tz('Asia/Kolkata')->format('d-m-Y H:i:s');
+                $date = date_create($item->updated_at);
+                $item->updated_at_format = date_format($date, "d/m/Y H:i:s");
 
                 return $item;
             });
-
 
 
             return compact('data');

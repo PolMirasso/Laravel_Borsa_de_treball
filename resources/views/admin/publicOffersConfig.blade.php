@@ -176,7 +176,7 @@
                 { "targets": 3, "data": 'offer_type' },
                 { "targets": 4, "data": 'working_day_type' },
                 { "targets": 5, "data": 'offer_sector' },
-                { "targets": 6, "data": 'updated_at' },
+                { "targets": 6, "data": 'updated_at_format' },
                 {
                     "targets": 7,
                     "data": 'id',
