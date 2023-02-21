@@ -260,6 +260,46 @@
             </div>
         </div>
 
+        <!-- Eliminar Modal-->
+        <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Segur que vols Eliminar?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Acceptar" si estas segur a eleminar-ho.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="{{ route('logout') }}">Acceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acceptar Modal-->
+        <div class="modal fade" id="acceptarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Segur que vols Acceptar?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Acceptar" si estas segur, sino dona-l'hi a "Cancelar" .</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="{{ route('logout') }}">Acceptar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
         <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
