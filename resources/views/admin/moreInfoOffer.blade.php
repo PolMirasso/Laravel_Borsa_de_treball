@@ -2,30 +2,17 @@
 
 @section('content')
 
-<div class="container">
-    <h1>dades complertes oferta</h1>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dades de l'oferta</h1>
+</div>
 
-    <div class="container">
-
-        @if(Session::has('mensaje'))
-
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('mensaje') }}
-        </div>
-        @endif
-
-        @include('admin.moreInfoOfferLayout')
+<div class="row">
 
 
-        <a href="{{ url('admin/recover/${data}') }}" onclick="return confirm('Segu que vols recuperar la oferta')"
-            class='btn btn-success'>Recuperar</a>
-        <a href="{{ url('admin/edit/${data}') }}" class='btn btn-warning'>Modificar</a>
+    @include('admin.moreInfoOfferLayout',['modo'=>'logOfertes'])
 
 
-        <a href="{{ url('admin/logOffers/') }}" class='btn btn-danger'>Cancelar</a>
-
-    </div>
+</div>
 
 </div>
 @endsection

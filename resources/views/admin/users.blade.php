@@ -2,64 +2,46 @@
 
 @section('content')
 
-<div class="container">
+<h1 class="h3 mb-2 text-gray-800">Llista d'usuaris administrador</h1>
 
-    <div class="panel panel-default">
+<p class="mb-4"></a>Llista dels estudiants actuals.</p>
 
-        <h1>Edició d'Usuaris Admin</h1>
+<div class="card shadow mb-4">
+    <div class="card-header d-flex justify-content-between">
 
-        @if(Session::has('mensaje'))
 
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('mensaje') }}
-        </div>
-        @endif
-
-        @if(count($errors)>0)
-
-        <div class="alert alert-danger">
-            <ul>
-                @foreach( $errors->all() as $error)
-                <li> {{ $error }}</li>
-                @endforeach
-            </ul>
-
+        <div>
+            <h6 class="m-0 font-weight-bold text-primary">Edicio d'Estudiants</h6>
         </div>
 
-        @endif
+        <div>
+            <a href="{{ route('addUsr') }}" class="btn btn-success btn-icon-split btn-sm">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Afegir Usuari</span>
+            </a>
+        </div>
 
+    </div>
+    <div class="card-body">
         <div class="table-responsive">
+            <table class="table table-bordered" id="ofertes" width="100%" cellspacing="0">
 
-            <table id="ofertes" class="display" style="width:100%">
+
                 <thead>
                     <tr>
-                        <th>username</th>
-                        <th>email</th>
-                        <th>type_user</th>
+                        <th>Nom Usuari</th>
+                        <th>Correu</th>
+                        <th>Tipus de permisos</th>
                         <th>Accio</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 1" data-column="0">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 2" data-column="1">
-                        </td>
-                        <td>
-                            <input type="text" class="form-control filter-input" placeholder="filtre 3" data-column="2">
-                        </td>
-
-                        <td></td>
-
-                    </tr>
-
-                    <tr>
-                        <td>
                             <select data-column="0" class="form-control filter-select">
-                                <option value="">tria opcio</option>
+                                <option value="">Nom Usuari</option>
                                 @foreach ($username as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
@@ -68,7 +50,7 @@
                         </td>
                         <td>
                             <select data-column="1" class="form-control filter-select">
-                                <option value="">tria opcio</option>
+                                <option value="">Correu</option>
                                 @foreach ($email as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
@@ -77,7 +59,7 @@
                         </td>
                         <td>
                             <select data-column="2" class="form-control filter-select">
-                                <option value="">tria opcio</option>
+                                <option value="">Tipus de permisos</option>
                                 @foreach ($type_user as $type)
                                 <option value="{{ $type }}"> {{ $type }}</option>
                                 @endforeach
@@ -89,11 +71,21 @@
                         <td></td>
 
                     </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control filter-input" placeholder="Nom Usuari"
+                                data-column="0">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control filter-input" placeholder="Correu" data-column="1">
+                        </td>
+
+                        <td></td>
+                        <td></td>
+
+                    </tr>
                 </tfoot>
             </table>
-
-            <a href="{{ route('addUsr') }}" class='btn btn-warning'>Afegir usr<a />
-
 
         </div>
     </div>
@@ -104,12 +96,21 @@
 
 @section('javascript')
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js">
-</script>
+<!-- Core plugin JavaScript-->
+<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-</script>
+<!-- Custom scripts for all pages-->
+
+<!-- Page level plugins -->
+<script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -132,14 +133,14 @@
 
                         if (row.type_user != "Admin" && '{{ Auth:: user()-> type_user }}' != 2) {
                             return `
-                                    <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
-                                    <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
-                                    <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segu que vols eliminar la conta')" class='btn btn-danger'>Eliminar<a/> 
-                                        `;
+                                <a href="{{ url('admin/user/edit/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
+                                <a href="{{ url('admin/changePassword/${data}') }}" class="btn btn-info btn-circle"> <i class="fa fa-key"></i> </a>
+                                <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segur que vols eliminar la conta?')" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
+                                    `;
                         } else {
                             return `
-                                    <a href="{{ url('admin/user/edit/${data}') }}" class='btn btn-warning'>Modificar<a/> 
-                                    <a href="{{ url('admin/changePassword/${data}') }}" class='btn btn-primary'>Canviar contra<a/> 
+                                <a href="{{ url('admin/user/edit/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
+                                <a href="{{ url('admin/changePassword/${data}') }}" class="btn btn-info btn-circle"> <i class="fa fa-key"></i> </a>
                                     `;
                         }
                     }
