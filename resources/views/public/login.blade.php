@@ -9,81 +9,126 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Borsa de Treball - Login</title>
+    <title>Borsa de Treball || Login</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" type="text/css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-
     <link rel="stylesheet" href="{{asset('css/sb-admin-2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
+
+
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+
 </head>
 
+
 <body class="bg-gradient-primary">
-    <form method="post" action="{{ route('inicia-sesion') }}">
-        @csrf
-        <div class="container">
 
-            <!-- Outer Row -->
-            <div class="row justify-content-center">
+    <div class="container">
 
-                <div class="col-xl-10 col-lg-12 col-md-9">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
 
-                    <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0">
-                            <!-- Nested Row within Card Body -->
-                            <div class="row">
-                                <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                                <div class="col-lg-6">
-                                    <div class="p-5">
-                                        <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
-                                        </div>
-                                        <form class="user">
-                                            <div class="form-group">
-                                                <label for="emailInput" class="form-label">Email</label>
-                                                <input type="email" class="form-control" name="email" id="emailInput"
-                                                    required autocomplete="disable">
-                                            </div>
-                                            <label for="passwordInput" class="form-label">Password</label>
-                                            <input type="password" class="form-control" name="password"
-                                                id="passwordInput" required>
-                                            <div class="custom-control custom-checkbox small mt-1">
-                                                <input type="checkbox" name="remember" id="rememberCheck"
-                                                    class="form-check-input">
-                                                <label for="rememberCheck" class="form-check-label">Mantindre sessio
-                                                    iniciada</label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mt-1">Iniciar sessio</button>
-                                            <div class="text-center mt-1">
-                                                <a class="small" href="{{ route('register') }}">Create an Account!</a>
-                                            </div>
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Benvingut de nou!</h1>
                                     </div>
+
+                                    @if(count($errors)>0)
+
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach( $errors->all() as $error)
+                                            <li> {{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+
+                                    </div>
+                                    @endif
+
+                                    @if(Session::has('error'))
+
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        {{ Session::get('error') }}
+                                    </div>
+                                    @endif
+
+
+                                    <form class="user" method="post" action="{{ route('inicia-sesion') }}">
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <input type="email" class="form-control form-control-user" name="email"
+                                                id="emailInput" aria-describedby="emailHelp" placeholder="Correu">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                                id="exampleInputPassword" name="password" id="passwordInput"
+                                                placeholder="Contrasenya">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" name="remember" class="custom-control-input"
+                                                    id="rememberCheck">
+                                                <label class="custom-control-label"
+                                                    for="rememberCheck">Recorda'm</label>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">Iniciar
+                                            sessio</button>
+
+                                        <hr>
+
+                                        <div class="text-center">
+                                            <a class="small" href="{{ route('register') }}">Crear un compte</a>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
 
         </div>
-    </form>
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
 
+    <!-- Page level plugins -->
+    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+    <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
 </body>
 
 </html>

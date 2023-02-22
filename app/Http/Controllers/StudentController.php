@@ -115,6 +115,13 @@ class StudentController extends Controller
 
             $mensaje_Error = [
                 'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+
+                'email.required' => 'El correu es obligatòri.',
+                'password.required' => 'La contrasenya és obligatòria.',
+                'password.regex' => "La contrasenya ha de tenir com a mínim una lletra i un dígit, i la seva longitud ha de ser d'almenys quatre caràcters.",
+                'course.required' => 'El curs es obligatòri.',
+                'population.required' => 'La població és obligatòria.',
+                'cv_name.nullable' => 'El curriculum es obligatori.',
             ];
 
             $this->validate($request, $caps_validar, $mensaje_Error);

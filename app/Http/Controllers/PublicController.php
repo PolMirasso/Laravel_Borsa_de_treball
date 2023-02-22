@@ -26,15 +26,21 @@ class PublicController extends Controller
         $caps_validar = [
             'username' => 'required|string|max:100',
             'email' => 'required|string|max:100',
-            'password' => 'required|string|max:100',
+            'password' => 'required|min:4|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/',
             'course' => 'required|string|max:100',
             'population' => 'required|string|max:100',
-            'mobility' => 'nullable|string|max:100',
             'cv_name' => 'required|mimes:pdf|max:10000',
         ];
 
         $mensaje_Error = [
             'required' => 'El camp :attribute es obligatori', #en cas de algun camp falti
+            'email.required' => 'El correu es obligatòri.',
+            'password.required' => 'La contrasenya és obligatòria.',
+            'password.regex' => "La contrasenya ha de tenir com a mínim una lletra i un dígit, i la seva longitud ha de ser d'almenys quatre caràcters.",
+            'course.required' => 'El curs es obligatòri.',
+            'population.required' => 'La població és obligatòria.',
+            'cv_name.required' => 'El curriculum es obligatori.',
+
         ];
 
         $this->validate($request, $caps_validar, $mensaje_Error);
@@ -56,7 +62,7 @@ class PublicController extends Controller
 
         if ($result) {
             if ($result->email == $user->email) {
-                return redirect('/register')->with('mensaje',  "El correu ja esta registrat");
+                return redirect('/register')->with('error',  "El correu ja esta registrat");
             }
         }
 
@@ -74,6 +80,23 @@ class PublicController extends Controller
 
     public function login(Request $request)
     {
+
+        $caps_validar = [
+            'email' => 'required|string|max:100',
+            'password' => 'required|string|max:100',
+
+        ];
+
+        $mensaje_Error = [
+            'required' => 'El camp :attribute es obligatori', #en cas de algun camp falti
+            'email.required' => 'El correu és obligatori.',
+            'password.required' => 'La contrasenya és obligatòria.',
+
+        ];
+
+        $this->validate($request, $caps_validar, $mensaje_Error);
+
+
         $credentials = [
             "email" => $request->email,
             "password" => $request->password
@@ -95,7 +118,7 @@ class PublicController extends Controller
             }
         } else {
             //msg error
-            return redirect('login');
+            return redirect('login')->with('error', 'Usuari o contrasenya no valid.');
         }
     }
 

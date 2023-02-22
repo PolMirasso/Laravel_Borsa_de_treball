@@ -32,11 +32,11 @@
 
 @endif
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Editar Perfil</h6>
-        </div>
-        <div class="card-body">
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Editar Perfil</h6>
+    </div>
+    <div class="card-body">
         <form action=" {{ url('/student/updateStudentData/'.$data->id) }}" method="post" enctype="multipart/form-data">
 
             @csrf
@@ -65,10 +65,10 @@
                     value="{{ isset($data->population)?$data->population:old('population') }}" id="population">
             </div>
 
-            <div class="form-group">
-                <label for="cv_name" class="control-label">Nou currículum: </label>
-                <input class="form-control" type="file" name="cv_name" id="cv_name"
-                    value="{{ isset($data->cv_name)?$data->cv_name:old('cv_name') }}">
+            <label for="populationInput">Nou currículum: </label>
+            <div class="form-group custom-file mb-3">
+                <label for="cv_name" class="custom-file-label">Nou currículum</label>
+                <input class="custom-file-input" type="file" name="cv_name" id="cv_name" lang="es">
             </div>
 
 

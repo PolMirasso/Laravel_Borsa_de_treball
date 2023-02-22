@@ -330,12 +330,15 @@ class AdminController extends Controller
         if ($user->type_user == 1 || $user->type_user == 2) {
 
             $caps_validar = [
-                'password' => 'required|string|max:100',
+                'password' => 'required|min:4|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/',
             ];
 
 
             $mensaje_Error = [
                 'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+                'password.required' => 'La contrasenya és obligatòria.',
+                'password.regex' => "La contrasenya ha de tenir com a mínim una lletra i un dígit, i la seva longitud ha de ser d'almenys quatre caràcters.",
+
             ];
 
             if ($user->type_user == 2) {
@@ -711,11 +714,18 @@ class AdminController extends Controller
                 'email' => 'required|email',
                 'course' => 'required|string|max:100',
                 'population' => 'required|string|max:100',
+                'cv_name' => 'nullable|mimes:pdf|max:10000',
+
             ];
 
 
             $mensaje_Error = [
                 'required' => 'El :attribute es obligatori', #en cas de algun camp falti
+
+                'email.required' => 'El correu es obligatòri.',
+                'course.required' => 'El curs es obligatòri.',
+                'population.required' => 'La població és obligatòria.',
+                'cv_name.nullable' => 'El curriculum es obligatori.',
             ];
 
             if ($user->type_user == 2) {
