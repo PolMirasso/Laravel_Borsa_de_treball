@@ -36,7 +36,7 @@
 
     @endif
 
-<div class="card shadow mb-4">
+    <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Formulari Empreses</h6>
         </div>
@@ -169,7 +169,7 @@
                     <label for="offer_sector">Sector: </label>
                     <div class="mb-3">
                         <select class="form-control" id="offer_sector" aria-label="Default select example" ">
-                            <option name="offer_sector" value="offer_sector">Adminitració</option>
+                            <option name=" offer_sector" value="offer_sector">Adminitració</option>
                             <option value="offer_sector">Comerç Internacional</option>
                             <option value="offer_sector">Màrqueting i Publicitat</option>
                             <option value="offer_sector">Automociót</option>
@@ -194,40 +194,40 @@
                         dades</label>
                 </div>
                 <div class="my-2"></div>
-                
+
                 <button type="submit" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-check"></i>
-                </span>
-                <span class="text">Enviar</span>
-            </button>
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Enviar</span>
+                </button>
 
-            <div class="my-2"></div>
-            <a  href="{{ url('/') }}" class="btn btn-danger btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-trash"></i>
-                </span>
-                <span class="text">Cancelar</span>
-            </a>
-        
+                <div class="my-2"></div>
+                <a href="{{ url('/') }}" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Cancelar</span>
+                </a>
+
         </div>
-    </form>
+        </form>
 
-</div>
+    </div>
 
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- Core plugin JavaScript-->
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-<!-- Custom scripts for all pages-->
+    <!-- Custom scripts for all pages-->
 
-<!-- Page level plugins -->
-<script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Page level plugins -->
+    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
-<!-- Page level custom scripts -->
-<script src="{{asset('js/demo/datatables-demo.js')}}"></script>
-<script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
+    <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
