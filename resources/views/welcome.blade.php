@@ -21,14 +21,14 @@
     <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}">
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary mt-5">
     <div class="container">
         <!-- Outer Row -->
-        <div class="row justify-content-center">
+        <div class="row justify-content-center my-5">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-10 col-lg-12 col-md-9 mt-5">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5 mt-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
@@ -36,15 +36,24 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">BORSA DE TREBALL</h1>
-                                        <a href="{{ url('borsa-treball') }}">BORSA TREBALL PUBLICA</a>
-                                        <br>
-                                        <a href="{{ url('company/create') }}">FORMULARI EMPRESES</a>
-                                        <br>
-                                        <a href="{{ url('/login') }}">LOGIN</a>
-                                        <br>
+                                        <h1 class="h4 text-gray-900 mb-4 ">Borsa La Salle Mollerussa</h1>
+                                        <a href="{{ url('borsa-treball') }}" class="btn btn-primary btn-user btn-block mt-5">
+                                        BORSA DE TREBALL
+                                        </a>
+                                        <a href="{{ url('company/create') }}" class="btn btn-primary btn-user btn-block mt-5">
+                                        FORMULARI EMPRESES
+                                        </a>
+                                        <a href="{{ url('/login') }}" class="btn btn-primary btn-user btn-block mt-5">
+                                        LOGIN
+                                        </a>
                                     </div>
-
+                                    <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; La Salle Mollerussa 2023</span>
+                        </div>
+                    </div>
+                </footer>
                                 </div>
                             </div>
                         </div>
