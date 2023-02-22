@@ -35,11 +35,18 @@ class CompanyController extends Controller
         ];
 
         $mensaje_Error = [
-            'required' => 'El camp :attribute es obligatori', #en cas de algun camp falti
+            'required' => 'El camp :attribute es obligatori',
+            'company_email.required' => 'El correu és obligatori.',
             'company_type.required' => 'Seleciona un tipus de empresa.',
-            'company_type.in' => 'Tipus de empresa no valid.',
-            'TipusOferta.required' => 'Please select a type of offer.',
-            'TipusOferta.in' => 'Invalid type of offer selected.',
+            'company_nif.required' => 'El nif és obligatori.',
+            'commercial_name.required' => "El nom de l'empresa és obligatori.",
+            'contact_person.required' => 'La persona de contacte és obligatori.',
+            'company_phone.required' => 'El número de contacte és obligatori.',
+            'company_population.required' => "La població de l'empresa és obligatòria.",
+            'offer_type.required' => "Seleciona un tipus d'oferta.",
+            'working_day_type.required' => "La jornada de treball és obligatòria.",
+            'offer_sector.required' => 'El sector és obligatori.',
+            'characteristics.required' => 'Les característiques són obligatòries.',
         ];
 
         $this->validate($request, $caps_validar, $mensaje_Error);
