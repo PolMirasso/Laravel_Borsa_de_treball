@@ -32,7 +32,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-icon">
                     <i class='far fa-star' style='font-size:15px'></i>
 
@@ -158,7 +158,7 @@
 
                         <a class="collapse-item" href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Configurar
+                            Configuració
                         </a>
 
 
@@ -200,7 +200,7 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->username
@@ -216,6 +216,7 @@
                                     Tancar Sessió
                                 </a>
                             </div>
+
                         </li>
                     </ul>
 
@@ -250,8 +251,8 @@
                         </ul>
 
                     </div>
-
                     @endif
+         
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"></h1>
 

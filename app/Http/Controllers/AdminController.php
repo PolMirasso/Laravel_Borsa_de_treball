@@ -83,7 +83,7 @@ class AdminController extends Controller
             $data->offer_state = "Accepted";
             $data->offer_visiblity = 1;
             Offer::where('offer_visiblity', "0")->where('offer_id', $id)->update($data->toArray());
-            return redirect('admin')->with('mensaje', 'acceptat'); #redirigir i enviar msg
+            return redirect('admin')->with('mensaje', "L'oferta s'ha acceptat."); #redirigir i enviar msg
         } else {
             return redirect()->intended('/student');
         }

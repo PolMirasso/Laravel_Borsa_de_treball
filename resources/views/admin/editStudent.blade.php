@@ -3,39 +3,26 @@
 
 @section('content')
 
-<div class="container">
-    <div class="panel panel-default">
-        <h1>Editar Estudiant</h1>
-        @if(Session::has('mensaje'))
+<h1 class="h3 mb-2 text-gray-800">Editar Estudiant</h1>
 
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ Session::get('mensaje') }}
-        </div>
-        @endif
+<p class="mb-4"></a>Modificar les dades de l'estudiant.</p>
 
-        @if(count($errors)>0)
-
-        <div class="alert alert-danger">
-            <ul>
-                @foreach( $errors->all() as $error)
-                <li> {{ $error }}</li>
-                @endforeach
-            </ul>
-
-        </div>
-
-        @endif
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Dades estudiant</h6>
+    </div>
+    <div class="card-body">
 
         <body>
-            <main class="container align-center p-5">
-                <form action=" {{ url('/admin/updateStudent/'.$data->id) }}" method="post" enctype="multipart/form-data">
+            <main class="container align-center p-3">
+                <form action=" {{ url('/admin/updateStudent/'.$data->id) }}" method="post"
+                    enctype="multipart/form-data">
 
                     @csrf
 
                     @include('admin.userform',['modo'=>'EditStudent'])
 
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
 
                 </form>
             </main>
