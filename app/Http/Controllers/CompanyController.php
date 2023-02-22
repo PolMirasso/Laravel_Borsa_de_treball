@@ -22,20 +22,24 @@ class CompanyController extends Controller
 
         $caps_validar = [
             'company_email' => 'required|string|max:100',
-            'company_type' => 'required|string|max:100',
+            'company_type' => 'required',
             'company_nif' => 'required|string|max:100',
             'commercial_name' => 'required|string|max:100',
             'contact_person' => 'required|string|max:100',
             'company_phone' => 'required|string|max:100',
             'company_population' => 'required|string|max:100',
-            'offer_type' => 'required|string|max:100',
-            'working_day_type' => 'required|string|max:100',
-            'offer_sector' => 'required|string|max:100',
+            'offer_type' => 'required',
+            'working_day_type' => 'required',
+            'offer_sector' => 'required',
             'characteristics' => 'required|string|max:100'
         ];
 
         $mensaje_Error = [
             'required' => 'El camp :attribute es obligatori', #en cas de algun camp falti
+            'company_type.required' => 'Seleciona un tipus de empresa.',
+            'company_type.in' => 'Tipus de empresa no valid.',
+            'TipusOferta.required' => 'Please select a type of offer.',
+            'TipusOferta.in' => 'Invalid type of offer selected.',
         ];
 
         $this->validate($request, $caps_validar, $mensaje_Error);

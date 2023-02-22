@@ -7,7 +7,6 @@
         </div>
         <div class="card-body">
 
-
             <ul class="list-group list-group-light">
                 <li class="list-group-item border-0"><strong class="text-info">Id Oferta:</strong> {{
                     $data->offer_id }}

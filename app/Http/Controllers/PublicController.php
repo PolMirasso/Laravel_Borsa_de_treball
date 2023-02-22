@@ -93,10 +93,6 @@ class PublicController extends Controller
             } else {
                 return redirect()->intended('/admin');
             }
-
-            //   return redirect()->intended('/student.index');
-
-
         } else {
             //msg error
             return redirect('login');
