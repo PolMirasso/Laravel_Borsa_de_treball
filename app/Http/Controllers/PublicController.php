@@ -31,8 +31,6 @@ class PublicController extends Controller
             'population' => 'required|string|max:100',
             'mobility' => 'nullable|string|max:100',
             'cv_name' => 'required|mimes:pdf|max:10000',
-
-
         ];
 
         $mensaje_Error = [
