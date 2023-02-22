@@ -72,8 +72,7 @@
                                     </div>
 
                                     <div class="col-sm-12 custom-file">
-                                        <label for="cv_name" class="custom-file-label">Seleccionar
-                                            Archivo</label>
+                                        <label for="cv_name" class="custom-file-label">Curriculum</label>
                                         <input class="custom-file-input" type="file" name="cv_name" id="cv_name"
                                             lang="es">
                                     </div>

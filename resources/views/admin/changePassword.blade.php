@@ -1,41 +1,30 @@
-
 @extends('navbar')
+
 
 @section('content')
 
-<h1>Canviar Contrassenya</h1>
-@if(Session::has('mensaje'))
+<h1 class="h3 mb-2 text-gray-800">Canviar Contrassenya</h1>
 
-<div class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    {{ Session::get('mensaje') }}
-</div>
-@endif
+<p class="mb-4"></a>Modificar les dades de l'estudiant.</p>
 
-@if(count($errors)>0)
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Canviar contrasenya administrador</h6>
+    </div>
+    <div class="card-body">
 
-<div class="alert alert-danger">
-    <ul>
-        @foreach( $errors->all() as $error)
-        <li> {{ $error }}</li>
-        @endforeach
-    </ul>
 
-</div>
+        <body>
+            <main class="container align-center p-5">
+                <form action=" {{ url('/admin/updatePassword/'.$data->id) }}" method="post">
 
-@endif
+                    @csrf
 
-<body>
-    <main class="container align-center p-5">
-        <form action=" {{ url('/admin/updatePassword/'.$data->id) }}" method="post">
+                    @include('admin.userform',['modo'=>'ChangePassword'])
 
-            @csrf
+                    <button type="submit" class="btn btn-primary">Guardar</button>
 
-            @include('admin.userform',['modo'=>'ChangePassword'])
-
-            <button type="submit" class="btn btn-primary">Guardar</button>
-
-        </form>
-    </main>
-</body>
-@endsection
+                </form>
+            </main>
+        </body>
+        @endsection
