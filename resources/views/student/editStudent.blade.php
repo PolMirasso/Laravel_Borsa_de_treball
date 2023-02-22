@@ -1,4 +1,13 @@
-<h1>edit student</h1>
+@extends('navbar')
+
+@section('topbar')
+
+<h1 class="h3 mb-2 text-gray-800">Configuració</h1>
+
+@endsection
+
+@section('content')
+
 
 @if(Session::has('mensaje'))
 
@@ -7,6 +16,8 @@
     {{ Session::get('mensaje') }}
 </div>
 @endif
+
+
 
 @if(count($errors)>0)
 
@@ -21,8 +32,11 @@
 
 @endif
 
-<body>
-    <main class="container align-center p-5">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Editar Perfil</h6>
+        </div>
+        <div class="card-body">
         <form action=" {{ url('/student/updateStudentData/'.$data->id) }}" method="post" enctype="multipart/form-data">
 
             @csrf
@@ -66,5 +80,5 @@
             <button type="submit" class="btn btn-primary">Guardar</button>
 
         </form>
-    </main>
-</body>
+    </div>
+    @endsection

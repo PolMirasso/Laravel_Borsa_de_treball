@@ -158,7 +158,7 @@
 
                         <a class="collapse-item" href="{{ url('student/updateStudentPage/'.Auth::user()->id) }}">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Configurar
+                            Configuració
                         </a>
 
 
@@ -251,8 +251,8 @@
                         </ul>
 
                     </div>
-
                     @endif
+         
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800"></h1>
 
