@@ -525,6 +525,14 @@ class AdminController extends Controller
         if ($user->type_user == 1 || $user->type_user == 2) {
             $data = Student_Request::with('student', 'offer')->where('visibility', '0')->get();
 
+            $data->map(function ($item) {
+
+                $date = date_create($item->updated_at);
+                $item->updated_at_format = date_format($date, "d/m/Y H:i:s");
+
+                return $item;
+            });
+
             return compact('data');
         } else {
             return redirect()->intended('/student');

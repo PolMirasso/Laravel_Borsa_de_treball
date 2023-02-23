@@ -83,7 +83,7 @@ class PublicController extends Controller
 
         $caps_validar = [
             'email' => 'required|string|max:100',
-            'password' => 'required|string|max:100',
+            'password' => 'required|min:4|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/',
 
         ];
 
