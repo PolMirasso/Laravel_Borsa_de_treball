@@ -15,9 +15,10 @@
             </div>
             <div class="card-body">
 
-
-                <form action="{{ url('/admin/updatePublish/'.$data->offer_id) }}" method="post">
+                <form action="{{ route('updatePublish', $data->offer_id) }}" method="POST">
                     @csrf
+                    @method('PATCH')
+
                     <div class="mb-3">
                         <label for="company_email" class="form-label">Adreça electrònica: </label>
                         <input type="email" class="form-control" name="company_email"
@@ -50,7 +51,8 @@
                                 value="Empresa de Selecció de Personal" {{ (isset($data->company_type) &&
                             $data->company_type == 'Empresa de Selecció de Personal') || old('company_type') ==
                             'Empresa de Selecció de Personal' ? 'checked' : '' }}>
-                            <label class="form-check-label" for="company_type">Empresa de Selecció de Personal</label>
+                            <label class="form-check-label" for="company_type">Empresa de Selecció de
+                                Personal</label>
 
                         </div>
                         <div class="form-check">
@@ -126,7 +128,8 @@
                                     value="Pràctiques amb opció de treball" {{ (isset($data->offer_type) &&
                                 $data->offer_type == 'Pràctiques amb opció de treball') || old('offer_type') ==
                                 'Pràctiques amb opció de treball' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="offer_type">Pràctiques amb opció de treball</label>
+                                <label class="form-check-label" for="offer_type">Pràctiques amb opció de
+                                    treball</label>
 
                             </div>
                             <div class="form-check">
@@ -146,7 +149,8 @@
                             <label for="working_day_type" class="form-label">Jornada de Treball: </label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="working_day_type"
-                                    id="working_day_type" value="Jornada Sencera" {{ (isset($data->working_day_type) &&
+                                    id="working_day_type" value="Jornada Sencera" {{ (isset($data->working_day_type)
+                                &&
                                 $data->working_day_type == 'Jornada Sencera') || old('working_day_type') ==
                                 'Jornada Sencera' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="working_day_type">Jornada Sencera</label>
@@ -193,11 +197,13 @@
                                         }}>Adminitració</option>
                                     <option value="Comerç Internacional" {{ (isset($data->offer_sector) &&
                                         $data->offer_sector == 'Comerç Internacional')
-                                        || old('offer_sector') == 'Comerç Internacional' ? 'selected="selected"' : ''
+                                        || old('offer_sector') == 'Comerç Internacional' ? 'selected="selected"' :
+                                        ''
                                         }}>Comerç Internacional</option>
                                     <option value="Màrqueting i Publicitat" {{ (isset($data->offer_sector) &&
                                         $data->offer_sector == 'Màrqueting i Publicitat')
-                                        || old('offer_sector') == 'Màrqueting i Publicitat' ? 'selected="selected"' : ''
+                                        || old('offer_sector') == 'Màrqueting i Publicitat' ? 'selected="selected"'
+                                        : ''
                                         }}>Màrqueting i Publicitat</option>
                                     <option value="Automoció" {{ (isset($data->offer_sector) &&
                                         $data->offer_sector == 'Automoció')
@@ -205,7 +211,8 @@
                                         }}>Automoció</option>
                                     <option value="Instal·lacions Elèctriques" {{ (isset($data->offer_sector) &&
                                         $data->offer_sector == 'Instal·lacions Elèctriques')
-                                        || old('offer_sector') == 'Instal·lacions Elèctriques' ? 'selected="selected"' :
+                                        || old('offer_sector') == 'Instal·lacions Elèctriques' ?
+                                        'selected="selected"' :
                                         ''
                                         }}>Instal·lacions Elèctriques</option>
                                     <option value="Elèctronica" {{ (isset($data->offer_sector) &&
@@ -233,7 +240,8 @@
                                         }}>Imatge i So</option>
                                     <option value="Emergències Sanitàries" {{ (isset($data->offer_sector) &&
                                         $data->offer_sector == 'Emergències Sanitàries')
-                                        || old('offer_sector') == 'Emergències Sanitàries' ? 'selected="selected"' : ''
+                                        || old('offer_sector') == 'Emergències Sanitàries' ? 'selected="selected"' :
+                                        ''
                                         }}>Emergències Sanitàries
                                     </option>
                                     <option value="Altres" {{ (isset($data->offer_sector) &&
@@ -246,20 +254,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="characteristics">Caracteristiques: </label>
-                            <textarea class="form-control" id="characteristics" name="characteristics" rows="3"
-                                placeholder="{{ isset($data->characteristics)?$data->characteristics:old('characteristics') }}"></textarea>
+                            <textarea class="form-control" id="characteristics" name="characteristics"
+                                rows="3">{{ isset($data->characteristics)?$data->characteristics:old('characteristics') }}</textarea>
                         </div>
 
 
                         <div class="my-2"></div>
 
-                        <a type="submit" class="btn btn-success btn-icon-split"
+
+                        <button type="submit" class="btn btn-success btn-icon-split"
                             onclick="return confirm(`Segur que vols acceptar l'oferta?`)">
                             <span class="icon text-white-50">
                                 <i class="fas fa-check"></i>
                             </span>
                             <span class="text">Guardar i publicar</span>
-                        </a>
+                        </button>
 
                         <a href="{{ url('admin/') }}" class="btn btn-secondary btn-icon-split">
                             <span class="icon text-white-50">

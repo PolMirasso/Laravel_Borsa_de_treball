@@ -74,7 +74,6 @@
 
 
 
-
 @section('javascript')
 
 <!-- Bootstrap core JavaScript-->
@@ -116,56 +115,55 @@
                     orderable: false,
                     "render": function (data, type, row, meta) {
                         return `
-                            <a data-toggle="modal"
-                            data-target="#confirmMail" class="btn btn-warning btn-circle"> <i class="fa fa-envelope"></i> </a>
+                            <a data-toggle="modal" data-target="#confirmMail" class="btn btn-warning btn-circle"> <i class="fa fa-envelope"></i> </a>
                             <a href="{{ url('admin/moreInfo/${data}/${row.offer_id}') }}" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
                             <a href="{{ url('admin/requestVisibility/${data}/${row.offer_id}') }}" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>            
                             
 
                             <div class="modal fade" id="confirmMail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enviar correu</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
+                            aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Enviar correu</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
-                Borsa de treball | La Salle Mollerussa
-                <br>
-                <br>
-                Sol·licitud de ${row.student.username},
-                <br>
-                Benvolgut/uda ${row.offer.contact_person},
-                <br>
-                Li escric en nom de {{ Auth::user()->username }} per informar-li que hem rebut una sol·licitud de
-                ${row.offer.offer_type} de ${row.student.username} per la seva empresa.",
-                <br>
-                Com a part del procés de sol·licitud, ${row.student.username} ha proporcionat el seu currículum que pot
-                trobar adjunt a aquest correu electrònic. A més a més, a través del nostre lloc
-                web, hem verificat la seva experiència i habilitats relacionades amb el lloc de treball.",
-                <br>
-                Si està interessat/ada en procedir amb la sol·licitud de ${row.offer.commercial_name}, si us plau
-                faci'ns-ho saber perquè puguem proporcionar-li més detalls i posar-lo en contacte amb el
-                candidat.",
-                <br>
-                Gràcies pel seu temps i consideració.
-                <br>
-                Atentament
-                {{ Auth::user()->username }}
-                <br>
-                {{ Auth::user()->email }}
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                <a class="btn btn-primary" href="url('admin/sendMailCompany/${data}/${row.offer_id}')">Enviar correu</a>
-            </div>
-        </div>
-    </div>
-</div>
+                                        Borsa de treball | La Salle Mollerussa
+                                        <br>
+                                        <br>
+                                        Sol·licitud de ${row.student.username},
+                                        <br>
+                                        Benvolgut/uda ${row.offer.contact_person},
+                                        <br>
+                                        Li escric en nom de {{ Auth::user()->username }} per informar-li que hem rebut una sol·licitud de
+                                        ${row.offer.offer_type} de ${row.student.username} per la seva empresa.",
+                                        <br>
+                                        Com a part del procés de sol·licitud, ${row.student.username} ha proporcionat el seu currículum que pot
+                                        trobar adjunt a aquest correu electrònic. A més a més, a través del nostre lloc
+                                        web, hem verificat la seva experiència i habilitats relacionades amb el lloc de treball.",
+                                        <br>
+                                        Si està interessat/ada en procedir amb la sol·licitud de ${row.offer.commercial_name}, si us plau
+                                        faci'ns-ho saber perquè puguem proporcionar-li més detalls i posar-lo en contacte amb el
+                                        candidat.",
+                                        <br>
+                                        Gràcies pel seu temps i consideració.
+                                        <br>
+                                        Atentament
+                                        {{ Auth::user()->username }}
+                                        <br>
+                                        {{ Auth::user()->email }}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                        <a class="btn btn-primary" href="{{ url('admin/sendMailCompany/${data}/${row.offer_id}') }}">Enviar correu</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                             `;

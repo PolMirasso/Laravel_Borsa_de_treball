@@ -110,15 +110,15 @@ class AdminController extends Controller
             $caps_validar = [
                 'company_email' => 'required|email',
                 'company_type' => 'required|string|max:100',
-                'company_nif' => 'required|string|max:8',
-                'commercial_name' => 'required|string|max:8',
+                'company_nif' => 'required|string|max:10',
+                'commercial_name' => 'required|string|max:100',
                 'contact_person' => 'required|string|max:100',
                 'company_phone' => 'required|string|max:100',
                 'company_population' => 'required|string|max:100',
                 'offer_type' => 'required|string|max:100',
                 'working_day_type' => 'required|string|max:100',
                 'offer_sector' => 'required|string|max:100',
-                'characteristics' => 'required|string|max:100',
+                'characteristics' => 'required|string|max:10000',
 
             ];
 
@@ -309,9 +309,12 @@ class AdminController extends Controller
             $result = User::where('email', $request->email)->first();
 
 
-            if ($result->email == $user->email) {
-                return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
+            if ($result) {
+                if ($result->email == $user->email) {
+                    return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
+                }
             }
+
 
             $dades_usuari = request()->except('_token', '_method');
 
@@ -484,7 +487,8 @@ class AdminController extends Controller
 
             $result = User::where('email', $request->email)->first();
 
-            if (!$result) {
+
+            if ($result) {
                 return redirect('admin/users')->with('mensaje',  "El correu ja esta registrat");
             }
 
@@ -581,7 +585,7 @@ class AdminController extends Controller
 
             Student_Request::where('student_id', $idStudent)->where('offer_id', $idOffer)->update(['visibility' => 1]);
 
-            return view('admin.requestStudent');
+            return view('admin.requestStudent')->with('mensaje', "S'ha denegat la petició.");
         } else if ($user->type_user == 1) {
             return redirect()->intended('/student');
         }
@@ -882,7 +886,7 @@ class AdminController extends Controller
             $data->offer_state = "Recuperated";
             $data->offer_visiblity = 0;
             Offer::where('offer_visiblity', "2")->where('offer_id', $id)->update($data->toArray());
-            return redirect('admin/logOffers')->with('mensaje', 'recuperat'); #redirigir i enviar msg
+            return redirect('admin/logOffers')->with('mensaje', "S'ha recuperat l'oferta"); #redirigir i enviar msg
 
         } else {
             return redirect()->intended('/student');

@@ -11,6 +11,8 @@
 
         <title>Borsa Treball</title>
 
+        <link rel="icon" href="{{ asset('img/cropped-estrella.ico') }}" />
+
         <!-- Custom fonts for this template-->
         <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" type="text/css">
 
@@ -154,17 +156,7 @@
 
                                 </td>
 
-                                <td>
-                                    <select data-column="4" class="form-control filter-select">
-                                        <option value="">Característiques</option>
-                                        @foreach ($characteristics as $sector)
-                                        <option value="{{ $sector }}"> {{ $sector }}</option>
-                                        @endforeach
-                                    </select>
-
-                                </td>
-
-
+                                <td></td>
                                 <td></td>
 
                             </tr>

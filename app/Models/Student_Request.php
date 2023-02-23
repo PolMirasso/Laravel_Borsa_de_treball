@@ -20,7 +20,7 @@ class Student_Request extends Model
 
     public function offer()
     {
-        return $this->belongsTo(offer::class, 'offer_id');
+        return $this->belongsTo(Offer::class, 'offer_id');
     }
 
     use HasFactory;

@@ -31,7 +31,7 @@ class CompanyController extends Controller
             'offer_type' => 'required',
             'working_day_type' => 'required',
             'offer_sector' => 'required',
-            'characteristics' => 'required|string|max:100'
+            'characteristics' => 'required|string|max:10000'
         ];
 
         $mensaje_Error = [
@@ -52,6 +52,9 @@ class CompanyController extends Controller
         $this->validate($request, $caps_validar, $mensaje_Error);
 
         $offers_data = request()->except('_token'); #excluir el _token
+
+        $offers_data['characteristics'] = strtolower($offers_data['characteristics']);
+        $offers_data['characteristics'] = ucfirst($offers_data['characteristics']);
 
         Offer::insert($offers_data); #guardar a la db 
 

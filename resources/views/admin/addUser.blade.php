@@ -1,35 +1,30 @@
-<h1>Registre d'Admins</h1>
+@extends('navbar')
 
-@if(Session::has('mensaje'))
 
-<div class="alert alert-success alert-dismissable">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    {{ Session::get('mensaje') }}
+@section('content')
+
+<h1 class="h3 mb-2 text-gray-800">Registre d'Admins</h1>
+
+<p class="mb-4"></a>Registre d'usuaris administrador amb permisos de lectura.</p>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Canviar contrasenya administrador</h6>
+    </div>
+    <div class="card-body">
+
+        <body>
+            <main class="container align-center p-5">
+                <form method="post" action="{{ route('validar-admin') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    @include('admin.userform',['modo'=>'Add'])
+
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+
+                </form>
+            </main>
+        </body>
+    </div>
 </div>
-@endif
-
-@if(count($errors)>0)
-
-<div class="alert alert-danger">
-    <ul>
-        @foreach( $errors->all() as $error)
-        <li> {{ $error }}</li>
-        @endforeach
-    </ul>
-
-</div>
-
-@endif
-
-<body>
-    <main class="container align-center p-5">
-        <form method="post" action="{{ route('validar-admin') }}" enctype="multipart/form-data">
-            @csrf
-
-            @include('admin.userform',['modo'=>'Add'])
-
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-
-        </form>
-    </main>
-</body>
+@endsection

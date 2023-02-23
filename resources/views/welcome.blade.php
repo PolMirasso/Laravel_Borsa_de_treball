@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="{{ asset('img/cropped-estrella.ico') }}" />
 
     <title>Borsa de Treball - Login</title>
 
@@ -39,6 +40,15 @@
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4 ">Borsa La Salle Mollerussa</h1>
+
+                                        @if(Session::has('mensaje'))
+
+                                        <div class="alert alert-success alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                            {{ Session::get('mensaje') }}
+                                        </div>
+                                        @endif
+
                                         <a href="{{ url('borsa-treball') }}"
                                             class="btn btn-primary btn-user btn-block mt-5">
                                             BORSA DE TREBALL

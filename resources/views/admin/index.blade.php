@@ -136,6 +136,9 @@
 @endsection
 
 
+
+
+
 @section('javascript')
 
 
@@ -184,11 +187,10 @@
 
                         if ("{{ Auth:: user()-> type_user }}" == 1) {
                             return `
-                            <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segu que vols acceptar la oferta')" class="btn btn-success btn-circle"> <i class="fas fa-check"></i> </a>
+                            <a href="{{ url('admin/accept/${data}') }}" onclick="return confirm('Segur que vols acceptar la oferta?')" class="btn btn-success btn-circle"> <i class="fas fa-check"></i> </a>
                             <a href="{{ url('admin/edit/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
                             <a href="{{ url('admin/moreInfoCompanyOffer/${data}') }}" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
-                            <a href="{{ url('admin/deny/${data}') }}" data-toggle="modal" data-target="#eliminarModal" class="btn btn-danger btn-circle"> <i class="fas fa-trash" ></i> </a>
-
+                            <a href="{{ url('admin/deny/${data}') }}" onclick="return confirm('Segur que vols denegar la oferta?')" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
                             `;
                         } else {
                             return `<p>No disponible</p>`;
