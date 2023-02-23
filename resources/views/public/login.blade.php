@@ -11,6 +11,8 @@
 
     <title>Borsa de Treball || Login</title>
 
+    <link rel="icon" href="{{ asset('img/cropped-estrella.ico') }}" />
+
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" type="text/css">
 

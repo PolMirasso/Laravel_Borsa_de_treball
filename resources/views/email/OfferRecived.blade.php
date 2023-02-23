@@ -11,7 +11,7 @@
     <h1>{{ $details['title'] }}</h1>
     <p>{{ $details['body1'] }}</p>
     <p>{{ $details['body2'] }}</p>
-    @if($details['body3'] == "")
+    @if($details['body3'] != "")
     <p>{{ $details['body3'] }}</p>
     <p>{{ $details['body4'] }}</p>
     <p>{{ $details['body5'] }}</p>

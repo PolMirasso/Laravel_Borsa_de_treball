@@ -152,7 +152,7 @@
                         if ('{{ Auth:: user()-> type_user }}' == 1) {
                             return `
                                 <a href="{{ url('admin/user/editStudent/${data}') }}" class="btn btn-warning btn-circle">  <i class="fas fa-pencil-alt"></i> </a>
-                                <a href="{{ url('admin/changePassword/${data}') }}" class="btn btn-info btn-circle"> <i class="fas fa-info-circle"></i> </a>
+                                <a href="{{ url('admin/changePassword/${data}') }}" class="btn btn-info btn-circle"> <i class="fa fa-key"></i> </a>
                                 <a href="{{ url('admin/delete/${data}') }}" onclick="return confirm('Segur que vols eliminar la conta?')" class="btn btn-danger btn-circle"> <i class="fas fa-trash"></i> </a>
                             `;
                         } else {
